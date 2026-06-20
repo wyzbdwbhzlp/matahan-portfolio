@@ -6,16 +6,13 @@
     <meta name="description" content="Wu Haohan — 独立游戏开发者 | Indie Game Developer · 用代码与逻辑构建虚拟世界" />
     <title>Wu Haohan | Indie Game Developer</title>
 
-    <!-- ========== 外部依赖:字体 + Tailwind CDN ========== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&family=DotGothic16&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS CDN(开发预览用,生产建议编译) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tailwind 自定义主题:Celeste 美学——白底 + 黑字 + 暖橙金 + 黄昏天 -->
-    <script>
+    <script is:inline>
         tailwind.config = {
             theme: {
                 extend: {
@@ -109,8 +106,7 @@
         };
     </script>
 
-    <!-- ========== 自定义样式:Celeste 像素山景版 ========== -->
-    <style type="text/tailwindcss">
+    <style is:inline type="text/tailwindcss">
         @layer base {
             html {
                 scroll-behavior: smooth;
@@ -1012,7 +1008,6 @@
 </head>
 
 <body class="relative overflow-x-hidden">
-    <!-- ========== 自定义系统光标(桌面端) ========== -->
     <div class="cursor-crosshair" id="cursor-crosshair" aria-hidden="true">
         <div class="cross-line" style="position:absolute; top:50%; left:0; width:100%; height:1px; background:#4ade80;"></div>
         <div class="cross-line" style="position:absolute; left:50%; top:0; width:1px; height:100%; background:#4ade80;"></div>
@@ -1021,14 +1016,12 @@
     </div>
     <div id="cursor-trail-container" aria-hidden="true"></div>
 
-    <!-- ========== Konami 彩蛋:像素雪崩画布 ========== -->
     <canvas id="matrix-rain" aria-hidden="true"></canvas>
     <div class="konami-banner" id="konami-banner" aria-hidden="true">
         <div class="title">KONAMI CODE</div>
         <div class="subtitle">// developer_mode_unlocked</div>
     </div>
 
-    <!-- ========== 1-bit Adventure 小游戏全屏层 ========== -->
     <div id="adventure-game" class="adventure-game" aria-hidden="true">
         <div class="adventure-hud">
             <span class="adventure-score">SCORE <b id="adv-score">0</b></span>
@@ -1051,7 +1044,6 @@
         Try: <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd>
     </div>
 
-    <!-- ========== CRT 扫描线 + 故障渲染覆盖层 ========== -->
     <div class="crt-scanlines" aria-hidden="true"></div>
     <div class="crt-scanband" aria-hidden="true"></div>
     <div class="crt-noise" aria-hidden="true"></div>
@@ -1061,7 +1053,6 @@
 
     <div class="scanline"></div>
 
-    <!-- ========== 导航栏:固定顶部 ========== -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#hero" class="flex items-center gap-2 group">
@@ -1114,15 +1105,11 @@
         </div>
     </nav>
 
-    <!-- ========== 首屏 Hero Section:极光夜空 + 像素山剪影 ========== -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden celeste-sky">
-        <!-- 极光细丝层(漂动装饰) -->
         <div class="aurora-curtain" aria-hidden="true"></div>
 
-        <!-- 星座连线 SVG(6 条流光线,连 13 颗星点) -->
         <svg class="constellation" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <g stroke="#ffffff" stroke-width="0.12" stroke-linecap="round" fill="none" opacity="0.45">
-                <!-- 腰带 + 上肩:星点 1→3→5→7,1→3,3→11 -->
                 <line x1="8" y1="4" x2="28" y2="5" />
                 <line x1="28" y1="5" x2="40" y2="11" />
                 <line x1="40" y1="11" x2="52" y2="3" />
@@ -1130,7 +1117,6 @@
                 <line x1="76" y1="5" x2="95" y2="4" />
                 <line x1="35" y1="17" x2="58" y2="14" />
             </g>
-            <!-- 流光:每条线一个 dot 沿 path 移动 -->
             <g fill="#d1fae5">
                 <circle r="0.6" opacity="0.9">
                     <animate attributeName="cx" values="8;28;40;52;76;95" dur="11s" repeatCount="indefinite" />
@@ -1147,16 +1133,12 @@
             </g>
         </svg>
 
-        <!-- 像素雪粒子层(8-bit 风,极光夜空下飘雪) -->
         <div class="pixel-snow" id="pixel-snow" aria-hidden="true"></div>
 
-        <!-- 像素山剪影(2 层,极光夜空下用深蓝/近黑) -->
         <div class="celeste-mountains" aria-hidden="true">
-            <!-- 远山(午夜深蓝) -->
             <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="height: 60%;">
                 <polygon fill="#0a1228" points="0,200 80,140 140,160 220,90 320,130 400,100 480,140 560,110 660,150 760,80 840,130 940,100 1040,140 1120,110 1200,140 1200,200"/>
             </svg>
-            <!-- 近山(近黑) -->
             <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="height: 100%;">
                 <polygon fill="#020610" points="0,200 60,180 140,150 240,170 340,130 440,160 540,140 640,170 760,150 860,180 960,160 1080,180 1200,160 1200,200"/>
             </svg>
@@ -1164,18 +1146,15 @@
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center">
 
-            <!-- 名字:WHH 三色字母 + 副名 -->
             <h1 class="font-display font-black tracking-tighter mb-3 reveal">
                 <span class="whh-name"><span class="whh-letter">W</span><span class="whh-letter">H</span><span class="whh-letter">H</span></span>
             </h1>
             <p class="text-aurora-mist/55 font-pixel text-xs sm:text-sm tracking-[0.2em] mb-6 reveal" style="transition-delay:0.05s;">WU · HAOHAN</p>
 
-            <!-- 定位:Indie Game Developer 居中(无框无斜杠) -->
             <div class="flex items-center justify-center mb-8 reveal" style="transition-delay: 0.1s;">
                 <span class="font-pixel text-sm sm:text-lg tracking-[0.15em] text-aurora-mist/85 uppercase" data-i18n="hero.tag1">Indie Game Developer</span>
             </div>
 
-            <!-- 打字机效果:三行 slogan(中文用 DotGothic16/ZCOOL KuaiLe 像素感回退) -->
             <div class="max-w-3xl mx-auto mb-12 reveal" style="transition-delay: 0.2s;" id="hero-typewriter-wrap">
                 <p class="font-pixel text-sm sm:text-base md:text-lg celeste-hero-text leading-relaxed mb-2" id="tw-line-1"></p>
                 <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/80 leading-relaxed mb-2" id="tw-line-2"></p>
@@ -1187,7 +1166,6 @@
                 </noscript>
             </div>
 
-            <!-- CTA 按钮 -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal font-pixel text-xs sm:text-sm" style="transition-delay: 0.5s;">
                 <a href="#projects" class="btn-primary">
                     <span data-i18n="cta.projects">探索我的宇宙 (Projects)</span>
@@ -1213,7 +1191,6 @@
             </div>
         </div>
 
-        <!-- Hero 装饰按钮:1-bit 游戏入口 + 极光 ambient 音(下移避开 fixed nav) -->
         <div class="absolute top-24 right-6 z-30 flex flex-col gap-2 reveal" style="transition-delay: 1s;">
             <button id="start-adventure" type="button" aria-label="开始 1-bit 冒险游戏"
                 class="px-3 py-2 bg-black/60 border-2 border-aurora-green text-aurora-green font-pixel text-xs hover:bg-aurora-green hover:text-black transition-colors flex items-center gap-2">
@@ -1226,10 +1203,8 @@
         </div>
     </section>
 
-    <!-- ========== 像素云分隔(从黄昏到白底) ========== -->
     <div class="pixel-clouds" aria-hidden="true"></div>
 
-    <!-- ========== 核心独立游戏作品 Selected Projects ========== -->
     <section id="projects" class="relative py-24 md:py-32 bg-paper-50/50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="mb-16 reveal">
@@ -1244,7 +1219,6 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
-                <!-- 项目一:《蜡炬》Candle -->
                 <div class="card-3d">
                     <article class="glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden">
                         <div class="flex items-center justify-between mb-4">
@@ -1289,7 +1263,6 @@
                     </article>
                 </div>
 
-                <!-- 项目二:《库鲁绿洲》Kuru Oasis -->
                 <div class="card-3d">
                     <article class="glass-card hover-dream p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.1s;">
                         <div class="flex items-center justify-between mb-4">
@@ -1334,7 +1307,6 @@
                     </article>
                 </div>
 
-                <!-- 项目三:《蚀月序列》Eclipse Sequence -->
                 <div class="card-3d">
                     <article class="glass-card hover-ember p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.2s;">
                         <div class="flex items-center justify-between mb-4">
@@ -1379,7 +1351,6 @@
                     </article>
                 </div>
 
-                <!-- 项目四:《Wrist Sniper》 -->
                 <div class="card-3d">
                     <article class="glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.3s;">
                         <div class="flex items-center justify-between mb-4">
@@ -1427,7 +1398,6 @@
         </div>
     </section>
 
-    <!-- ========== 开发者旅程 Journey 时间线 ========== -->
     <section id="journey" class="relative py-24 md:py-32">
         <div class="max-w-6xl mx-auto px-6">
             <div class="mb-16 reveal">
@@ -1442,10 +1412,8 @@
 
             <div class="relative">
                 <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 pixel-axis" aria-hidden="true"></div>
-                <!-- 时间线流光光标(极光绿 4x4 像素亮点,自动循环扫描) -->
                 <div class="timeline-cursor hidden md:block" aria-hidden="true"></div>
 
-                <!-- 节点 1:Game Jam & 独立开发 -->
                 <div class="relative mb-12 md:mb-16 reveal">
                     <div class="timeline-node" style="top: 0.5rem;"></div>
 
@@ -1473,7 +1441,6 @@
                     </div>
                 </div>
 
-                <!-- 节点 2:Tencent TiMi(现在) -->
                 <div class="relative mb-12 md:mb-16 reveal">
                     <div class="timeline-node node-active" style="top: 0.5rem;"></div>
 
@@ -1505,7 +1472,6 @@
                     </div>
                 </div>
 
-                <!-- 节点 3:未来 -->
                 <div class="relative reveal">
                     <div class="timeline-node node-future" style="top: 0.5rem;"></div>
 
@@ -1537,7 +1503,6 @@
         </div>
     </section>
 
-    <!-- ========== 技能与灵魂基底 Skills & Soul ========== -->
     <section id="skills" class="relative py-24 md:py-32 bg-paper-50/50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="mb-16 reveal">
@@ -1552,7 +1517,6 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
 
-                <!-- 1. 开发利器 -->
                 <div class="glass-card p-6 md:p-8 reveal">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
@@ -1596,7 +1560,6 @@
                     </div>
                 </div>
 
-                <!-- 2. 独立之魂 -->
                 <div class="glass-card hover-dream p-6 md:p-8 reveal" style="transition-delay: 0.1s;">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
@@ -1624,7 +1587,6 @@
                     </div>
                 </div>
 
-                <!-- 3. 艺术触觉 -->
                 <div class="glass-card hover-ember p-6 md:p-8 reveal" style="transition-delay: 0.2s;">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
@@ -1655,7 +1617,6 @@
         </div>
     </section>
 
-    <!-- ========== 页脚 Footer ========== -->
     <footer class="relative py-12 border-t-2 border-aurora-green/30 bg-paper-50/50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -1700,8 +1661,7 @@
         </div>
     </footer>
 
-    <!-- ========== 交互脚本 ========== -->
-    <script>
+    <script is:inline>
         // ========== 0.1 极光鼠标视差(Hero 内 4 层反向漂移) ==========
         (function initAuroraParallax() {
             const hero = document.querySelector('.celeste-sky');
