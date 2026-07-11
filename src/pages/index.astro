@@ -1,4 +1,7 @@
 ---
+import { journeyItems } from '../data/journey';
+import { projects } from '../data/projects';
+import { skillPanels } from '../data/skills';
 import '../styles/design-tokens.css';
 ---
 
@@ -251,185 +254,64 @@ import '../styles/design-tokens.css';
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-
-                <!-- 项目一:《蜡炬》Candle -->
-                <div class="card-3d">
-                    <article class="glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 bg-aurora-green rounded-none animate-pulse"></span>
-                                <span class="text-xs text-ink-500 font-mono">PROJECT_01.exe</span>
+                {projects.map((project) => (
+                    <div class="card-3d">
+                        <article
+                            class:list={[
+                                'glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden',
+                                project.cardModifier,
+                            ]}
+                            style={project.transitionDelay ? `transition-delay: ${project.transitionDelay};` : undefined}
+                        >
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class:list={['w-2 h-2 rounded-none animate-pulse', project.pulseClass]}></span>
+                                    <span class="text-xs text-ink-500 font-mono">{project.fileLabel}</span>
+                                </div>
+                                <span class={project.status.className} data-i18n={project.status.i18nKey}>
+                                    {project.status.fallback}
+                                </span>
                             </div>
-                            <span class="text-xs text-aurora-green font-mono font-semibold">v1.2</span>
-                        </div>
 
-                        <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
-                            <div class="relative z-10 text-center">
-                                <div class="font-pixel text-2xl text-ink-900 mb-3">🕯️</div>
-                                <div class="text-[9px] text-aurora-green font-pixel">[ 2D_LIGHTING ]</div>
+                            <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
+                                <div class="relative z-10 text-center">
+                                    <div class="font-pixel text-2xl text-ink-900 mb-3">{project.icon}</div>
+                                    <div class="text-[9px] text-aurora-green font-pixel">{project.visualLabel}</div>
+                                </div>
+                                <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
+                                <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
+                                <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
+                                <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
                             </div>
-                            <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
-                            <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
-                            <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
-                            <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
-                        </div>
 
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="tag tag-ember" data-i18n="proj1.tag1">2D 解密</span>
-                            <span class="tag" data-i18n="proj1.tag2">TapTap 9.9</span>
-                            <span class="tag" data-i18n="proj1.tag3">聚光灯 TOP50</span>
-                        </div>
-
-                        <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
-                            <span data-i18n="proj1.title">《蜡炬》</span> <span class="text-ink-500 text-lg">/ Candle</span>
-                        </h3>
-
-                        <p class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel" data-i18n="proj1.desc">
-                            扮演不断燃烧的蜡烛人,在燃尽前为黑暗世界传递圣火。独立完成玩家与敌人的复杂<span class="font-semibold text-ink-900">状态机</span>搭建、<span class="font-semibold text-ink-900">A* 寻路</span>以及 <span class="font-semibold text-ink-900">2D 光照渲染</span>管线。
-                        </p>
-
-                        <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
-                            <span>// STACK</span>
-                            <span data-i18n="proj1.stack">Unity · C# · 2D Lighting · AI 状态机</span>
-                        </div>
-
-                        <div class="card-shine"></div>
-                    </article>
-                </div>
-
-                <!-- 项目二:《库鲁绿洲》Kuru Oasis -->
-                <div class="card-3d">
-                    <article class="glass-card hover-dream p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.1s;">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 bg-ink-700 rounded-none animate-pulse"></span>
-                                <span class="text-xs text-ink-500 font-mono">PROJECT_02.exe</span>
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                {project.tags.map((tag) => (
+                                    <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                        {tag.fallback}
+                                    </span>
+                                ))}
                             </div>
-                            <span class="text-xs text-ink-500 font-mono" data-i18n="proj2.status">DEV</span>
-                        </div>
 
-                        <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
-                            <div class="relative z-10 text-center">
-                                <div class="font-pixel text-2xl text-ink-900 mb-3">🌿</div>
-                                <div class="text-[9px] text-aurora-green font-pixel">[ IDLE_GAME ]</div>
+                            <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
+                                <span data-i18n={project.title.i18nKey}>{project.title.fallback}</span>
+                                {project.title.suffix && <span class="text-ink-500 text-lg"> {project.title.suffix}</span>}
+                            </h3>
+
+                            <p
+                                class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel"
+                                data-i18n={project.description.i18nKey}
+                                set:html={project.description.fallbackHtml}
+                            />
+
+                            <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
+                                <span>// STACK</span>
+                                <span data-i18n={project.stack.i18nKey}>{project.stack.fallback}</span>
                             </div>
-                            <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
-                            <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
-                            <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
-                            <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
-                        </div>
 
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="tag tag-ember" data-i18n="proj2.tag1">2D 休闲放置</span>
-                            <span class="tag" data-i18n="proj2.tag2">独立开发中</span>
-                            <span class="tag" data-i18n="proj2.tag3">治愈系</span>
-                        </div>
-
-                        <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
-                            <span data-i18n="proj2.title">《库鲁绿洲》</span> <span class="text-ink-500 text-lg">/ Kuru Oasis</span>
-                        </h3>
-
-                        <p class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel" data-i18n="proj2.desc">
-                            一款以<span class="font-semibold text-ink-900">邂逅与等待</span>为核心乐趣的放置游戏。负责整体技术架构,构建基于 <span class="font-semibold text-ink-900">ScriptableObject</span> 的数据管理、<span class="font-semibold text-ink-900">离线收益机制</span>、精灵复杂状态机及底层的数据持久化存储,实现 UI 与音效的高度<span class="font-semibold text-ink-900">组件化解耦</span>。
-                        </p>
-
-                        <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
-                            <span>// STACK</span>
-                            <span data-i18n="proj2.stack">系统架构 · ScriptableObject · 数据持久化</span>
-                        </div>
-
-                        <div class="card-shine"></div>
-                    </article>
-                </div>
-
-                <!-- 项目三:《蚀月序列》Eclipse Sequence -->
-                <div class="card-3d">
-                    <article class="glass-card hover-ember p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.2s;">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 bg-ink-700 rounded-none animate-pulse"></span>
-                                <span class="text-xs text-ink-500 font-mono">PROJECT_03.exe</span>
-                            </div>
-                            <span class="text-xs text-ink-500 font-mono">2025.11</span>
-                        </div>
-
-                        <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
-                            <div class="relative z-10 text-center">
-                                <div class="font-pixel text-2xl text-ink-900 mb-3">🌑</div>
-                                <div class="text-[9px] text-aurora-green font-pixel">[ AUTO_BATTLER ]</div>
-                            </div>
-                            <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
-                            <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
-                            <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
-                            <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="tag tag-ember" data-i18n="proj3.tag1">2D 自走棋</span>
-                            <span class="tag" data-i18n="proj3.tag2">玩心奖 TOP12</span>
-                            <span class="tag" data-i18n="proj3.tag3">CUC JOY 参展</span>
-                        </div>
-
-                        <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
-                            <span data-i18n="proj3.title">《蚀月序列》</span> <span class="text-ink-500 text-lg">/ Eclipse Sequence</span>
-                        </h3>
-
-                        <p class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel" data-i18n="proj3.desc">
-                            以<span class="font-semibold text-ink-900">棋子融合</span>为核心机制的 PVE 自走棋。从零搭建高拓展性的<span class="font-semibold text-ink-900">商店系统</span>、<span class="font-semibold text-ink-900">技能系统</span>及<span class="font-semibold text-ink-900">战斗解算</span>逻辑,并编写消融与自发光 Shader。
-                        </p>
-
-                        <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
-                            <span>// STACK</span>
-                            <span data-i18n="proj3.stack">玩法原型 · Shader 渲染 · 核心战斗解算</span>
-                        </div>
-
-                        <div class="card-shine"></div>
-                    </article>
-                </div>
-
-                <!-- 项目四:《Wrist Sniper》 -->
-                <div class="card-3d">
-                    <article class="glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden" style="transition-delay: 0.3s;">
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2 h-2 bg-ink-700 rounded-none animate-pulse"></span>
-                                <span class="text-xs text-ink-500 font-mono">PROJECT_04.exe</span>
-                            </div>
-                            <span class="text-xs text-ink-500 font-mono" data-i18n="proj4.award">Hackathon</span>
-                        </div>
-
-                        <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
-                            <div class="relative z-10 text-center">
-                                <div class="font-pixel text-2xl text-ink-900 mb-3">⌚</div>
-                                <div class="text-[9px] text-aurora-green font-pixel">[ WEARABLE_HW ]</div>
-                            </div>
-                            <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
-                            <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
-                            <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
-                            <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="tag tag-ember" data-i18n="proj4.tag1">体感交互</span>
-                            <span class="tag" data-i18n="proj4.tag2">ZeppOS 黑客马拉松优秀奖</span>
-                        </div>
-
-                        <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
-                            <span data-i18n="proj4.title">《Wrist Sniper》</span>
-                        </h3>
-
-                        <p class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel" data-i18n="proj4.desc">
-                            专为智能手表开发的<span class="font-semibold text-ink-900">体感 2D 狙击</span>游戏。深度调用底层<span class="font-semibold text-ink-900">硬件接口</span>,实现高精度的手腕<span class="font-semibold text-ink-900">重力感应映射</span>与精准的<span class="font-semibold text-ink-900">震动马达反馈</span>。
-                        </p>
-
-                        <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
-                            <span>// STACK</span>
-                            <span data-i18n="proj4.stack">Zepp OS · 硬件级交互 · 传感器算法</span>
-                        </div>
-
-                        <div class="card-shine"></div>
-                    </article>
-                </div>
+                            <div class="card-shine"></div>
+                        </article>
+                    </div>
+                ))}
 
             </div>
         </div>
@@ -453,93 +335,48 @@ import '../styles/design-tokens.css';
                 <!-- 时间线流光光标(极光绿 4x4 像素亮点,自动循环扫描) -->
                 <div class="timeline-cursor hidden md:block" aria-hidden="true"></div>
 
-                <!-- 节点 1:Game Jam & 独立开发 -->
-                <div class="relative mb-12 md:mb-16 reveal">
-                    <div class="timeline-node" style="top: 0.5rem;"></div>
+                {journeyItems.map((item, index) => (
+                    <div class:list={['relative reveal', index < journeyItems.length - 1 && 'mb-12 md:mb-16']}>
+                        <div class:list={['timeline-node', item.nodeClass]} style="top: 0.5rem;"></div>
 
-                    <div class="md:grid md:grid-cols-2 md:gap-12">
-                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
-                            <div class="inline-block md:block">
-                                <div class="text-ink-900 font-mono font-bold text-base md:text-lg uppercase tracking-wide" data-i18n="j1.date">2024.09 - Now</div>
-                                <div class="text-ink-500 text-xs sm:text-sm mt-1 font-pixel" data-i18n="j1.status">持续进行中</div>
-                            </div>
-                        </div>
-                        <div class="md:pl-12">
-                            <div class="glass-card p-6">
-                                <div class="flex flex-wrap items-center gap-2 mb-3">
-                                    <span class="tag" data-i18n="j1.tag1">Game Jam</span>
-                                    <span class="tag" data-i18n="j1.tag2">独立开发</span>
-                                </div>
-                                <h3 class="font-mono font-bold text-base md:text-lg text-ink-900 mb-2 uppercase tracking-tight" data-i18n="j1.title">
-                                    Game Jam & 独立开发
-                                </h3>
-                                <p class="text-ink-600 leading-relaxed text-xs sm:text-sm md:text-base font-pixel" data-i18n="j1.desc">
-                                    活跃于各大赛事,将天马行空的创意落地为可玩的 Demo,与伙伴们一起享受<span class="font-semibold text-ink-900">纯粹的创造乐趣</span>。在 48 小时的烧脑里,反复确认自己究竟为何要做游戏。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 节点 2:Tencent TiMi(现在) -->
-                <div class="relative mb-12 md:mb-16 reveal">
-                    <div class="timeline-node node-active" style="top: 0.5rem;"></div>
-
-                    <div class="md:grid md:grid-cols-2 md:gap-12">
-                        <div class="md:text-right md:pr-12 mb-4 md:mb-0 order-2 md:order-1">
-                            <div class="md:pl-12">
-                                <div class="glass-card p-6 border-4 border-aurora-green">
-                                    <div class="flex flex-wrap items-center gap-2 mb-3">
-                                        <span class="tag tag-ember" data-i18n="j2.tag1">Tencent TiMi T1</span>
-                                        <span class="tag" data-i18n="j2.tag2">系统策划</span>
+                        <div class="md:grid md:grid-cols-2 md:gap-12">
+                            <div class={item.dateColumnClass}>
+                                <div class:list={['inline-block md:block', item.dateInnerClass]}>
+                                    <div class={item.dateClass} data-i18n={item.date.i18nKey}>
+                                        {item.date.fallback}
                                     </div>
-                                    <h3 class="font-mono font-bold text-base md:text-lg text-ink-900 mb-2 uppercase tracking-tight" data-i18n="j2.title">
-                                        商业项目历练
-                                    </h3>
-                                    <p class="text-ink-600 leading-relaxed text-xs sm:text-sm md:text-base font-pixel" data-i18n="j2.desc">
-                                        系统策划精英实习生。在顶尖商业项目中<span class="font-semibold text-ink-900">历练研发落地能力</span>,但我深知,那份对<span class="font-semibold text-ink-900">独立表达</span>的渴望才是我的最终归宿。
-                                    </p>
+                                    <div class="text-ink-500 text-xs sm:text-sm mt-1 font-pixel" data-i18n={item.status.i18nKey}>
+                                        {item.status.fallback}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="md:pl-12 order-1 md:order-2 mb-4 md:mb-0">
-                            <div class="md:text-left md:pl-12">
-                                <div class="inline-block md:block">
-                                    <div class="ember-text font-mono font-bold text-base md:text-lg uppercase tracking-wide" data-i18n="j2.date">2026.01 - 2026.03</div>
-                                    <div class="text-ink-500 text-xs sm:text-sm mt-1 font-pixel" data-i18n="j2.status">实习已结业</div>
+                            <div class={item.cardColumnClass}>
+                                <div class={item.cardInnerClass}>
+                                    <div class={item.cardClass}>
+                                        <div class="flex flex-wrap items-center gap-2 mb-3">
+                                            {item.tags.map((tag) => (
+                                                <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                                    {tag.fallback}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <h3
+                                            class="font-mono font-bold text-base md:text-lg text-ink-900 mb-2 uppercase tracking-tight"
+                                            data-i18n={item.title.i18nKey}
+                                        >
+                                            {item.title.fallback}
+                                        </h3>
+                                        <p
+                                            class="text-ink-600 leading-relaxed text-xs sm:text-sm md:text-base font-pixel"
+                                            data-i18n={item.description.i18nKey}
+                                            set:html={item.description.fallbackHtml}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 节点 3:未来 -->
-                <div class="relative reveal">
-                    <div class="timeline-node node-future" style="top: 0.5rem;"></div>
-
-                    <div class="md:grid md:grid-cols-2 md:gap-12">
-                        <div class="md:text-right md:pr-12 mb-4 md:mb-0">
-                            <div class="inline-block md:block">
-                                <div class="text-ink-800 font-mono font-bold text-base md:text-lg uppercase tracking-wide" data-i18n="j3.date">2026 - ?</div>
-                                <div class="text-ink-500 text-xs sm:text-sm mt-1 font-pixel" data-i18n="j3.status">永远在路上</div>
-                            </div>
-                        </div>
-                        <div class="md:pl-12">
-                            <div class="glass-card p-6 border-4 border-aurora-violet">
-                                <div class="flex flex-wrap items-center gap-2 mb-3">
-                                    <span class="tag" data-i18n="j3.tag1">In Progress</span>
-                                    <span class="tag" data-i18n="j3.tag2">∞</span>
-                                </div>
-                                <h3 class="font-mono font-bold text-base md:text-lg text-ink-900 mb-2 uppercase tracking-tight" data-i18n="j3.title">
-                                    Keep Playing, Keep Creating
-                                </h3>
-                                <p class="text-ink-600 leading-relaxed text-xs sm:text-sm md:text-base font-pixel" data-i18n="j3.desc">
-                                    累计 <span class="font-semibold text-ink-900">4000+ 小时</span>的游戏阅历,在<span class="font-semibold text-ink-900">两个乐队</span>中寻找灵感。永远在路上,永远在用代码写诗。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
 
             </div>
         </div>
@@ -559,105 +396,59 @@ import '../styles/design-tokens.css';
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-
-                <!-- 1. 开发利器 -->
-                <div class="glass-card p-6 md:p-8 reveal">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="font-mono font-bold text-base text-ink-900 uppercase tracking-wide" data-i18n="skills.engines">开发利器</h3>
-                    </div>
-
-                    <div class="space-y-5">
-                        <div>
-                            <div class="flex items-center justify-between mb-2 text-sm">
-                                <span class="text-ink-800 font-medium">Unity</span>
-                                <span class="text-aurora-green font-mono text-xs font-semibold">95%</span>
+                {skillPanels.map((panel) => (
+                    <div
+                        class={panel.cardClass}
+                        style={panel.transitionDelay ? `transition-delay: ${panel.transitionDelay};` : undefined}
+                    >
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
+                                <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {panel.iconPaths.map((path) => (
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={path} />
+                                    ))}
+                                </svg>
                             </div>
-                            <div class="skill-bar"><div class="skill-bar-fill" data-width="95%"></div></div>
+                            <h3 class="font-mono font-bold text-base text-ink-900 uppercase tracking-wide" data-i18n={panel.title.i18nKey}>
+                                {panel.title.fallback}
+                            </h3>
                         </div>
-                        <div>
-                            <div class="flex items-center justify-between mb-2 text-sm">
-                                <span class="text-ink-800 font-medium">C#</span>
-                                <span class="text-aurora-green font-mono text-xs font-semibold">92%</span>
+
+                        {panel.bars && (
+                            <div class="space-y-5">
+                                {panel.bars.map((bar) => (
+                                    <div>
+                                        <div class="flex items-center justify-between mb-2 text-sm">
+                                            <span class="text-ink-800 font-medium">{bar.name}</span>
+                                            <span class="text-aurora-green font-mono text-xs font-semibold">{bar.value}%</span>
+                                        </div>
+                                        <div class="skill-bar"><div class="skill-bar-fill" data-width={`${bar.value}%`}></div></div>
+                                    </div>
+                                ))}
                             </div>
-                            <div class="skill-bar"><div class="skill-bar-fill" data-width="92%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex items-center justify-between mb-2 text-sm">
-                                <span class="text-ink-800 font-medium">Unreal Engine 5</span>
-                                <span class="text-aurora-green font-mono text-xs font-semibold">70%</span>
+                        )}
+
+                        {panel.tags && (
+                            <div class="flex flex-wrap gap-2.5">
+                                {panel.tags.map((tag) => (
+                                    <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                        {tag.fallback}
+                                    </span>
+                                ))}
                             </div>
-                            <div class="skill-bar"><div class="skill-bar-fill" data-width="70%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex items-center justify-between mb-2 text-sm">
-                                <span class="text-ink-800 font-medium">GitHub</span>
-                                <span class="text-aurora-green font-mono text-xs font-semibold">90%</span>
+                        )}
+
+                        {panel.note && (
+                            <div class="mt-6 pt-6 border-t-2 border-ink-700/10">
+                                <p
+                                    class="text-xs text-ink-500 font-pixel leading-relaxed"
+                                    data-i18n={panel.note.i18nKey}
+                                    set:html={panel.note.fallbackHtml}
+                                />
                             </div>
-                            <div class="skill-bar"><div class="skill-bar-fill" data-width="90%"></div></div>
-                        </div>
+                        )}
                     </div>
-                </div>
-
-                <!-- 2. 独立之魂 -->
-                <div class="glass-card hover-dream p-6 md:p-8 reveal" style="transition-delay: 0.1s;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="font-mono font-bold text-base text-ink-900 uppercase tracking-wide" data-i18n="skills.soul">独立之魂</h3>
-                    </div>
-
-                    <div class="flex flex-wrap gap-2.5">
-                        <span class="tag tag-ember" data-i18n="soul.tag1">系统框架搭建</span>
-                        <span class="tag tag-ember" data-i18n="soul.tag2">Gameplay 逻辑闭环</span>
-                        <span class="tag" data-i18n="soul.tag3">Shader 渲染表现</span>
-                        <span class="tag" data-i18n="soul.tag4">游戏拆解与原型开发</span>
-                        <span class="tag" data-i18n="soul.tag5">状态机 / A* 寻路</span>
-                        <span class="tag" data-i18n="soul.tag6">ScriptableObject</span>
-                        <span class="tag" data-i18n="soul.tag7">数据持久化</span>
-                    </div>
-
-                    <div class="mt-6 pt-6 border-t-2 border-ink-700/10">
-                        <p class="text-xs text-ink-500 font-pixel leading-relaxed" data-i18n="skills.soulNote">
-                            <span class="text-aurora-green">//</span> 我相信好的设计,是让玩家自己发现规则。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 3. 艺术触觉 -->
-                <div class="glass-card hover-ember p-6 md:p-8 reveal" style="transition-delay: 0.2s;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                            </svg>
-                        </div>
-                        <h3 class="font-mono font-bold text-base text-ink-900 uppercase tracking-wide" data-i18n="skills.art">艺术触觉</h3>
-                    </div>
-
-                    <div class="flex flex-wrap gap-2.5">
-                        <span class="tag tag-ember" data-i18n="art.tag1">乐队乐手</span>
-                        <span class="tag tag-ember" data-i18n="art.tag2">跨领域审美</span>
-                        <span class="tag" data-i18n="art.tag3">主机动作</span>
-                        <span class="tag" data-i18n="art.tag4">独立游戏鉴赏</span>
-                        <span class="tag" data-i18n="art.tag5">Game Jam 文化</span>
-                        <span class="tag" data-i18n="art.tag6">音乐 + 节奏</span>
-                    </div>
-
-                    <div class="mt-6 pt-6 border-t-2 border-ink-700/10">
-                        <p class="text-xs text-ink-500 font-pixel leading-relaxed" data-i18n="skills.artNote">
-                            <span class="text-aurora-green">//</span> 节奏是设计的另一半,代码也有律动。
-                        </p>
-                    </div>
-                </div>
+                ))}
 
             </div>
         </div>
