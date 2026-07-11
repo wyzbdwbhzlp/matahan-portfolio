@@ -424,7 +424,7 @@
 
         // ========== 0.5 RGB Split 故障(只对 H2 大标题,极轻量) ==========
         function applyGlitchRGB() {
-            document.querySelectorAll('#works h2 span[data-i18n], #journey h2 span[data-i18n], #skills h2 span[data-i18n]').forEach(el => {
+            document.querySelectorAll('#projects h2 span[data-i18n], #journey h2 span[data-i18n], #skills h2 span[data-i18n]').forEach(el => {
                 const text = el.textContent.trim();
                 if (!text) return;
                 el.setAttribute('data-text', text);
@@ -851,6 +851,7 @@
                     'nav.projects': '/ 作品',
                     'nav.journey': '/ 旅程',
                     'nav.skills': '/ 灵魂',
+                    'hero.tag1': 'Indie Game Developer',
                     'hero.tag2': 'Dreamer',
                     'hero.tag3': 'Code & Art',
                     'hero.line1': '用代码写诗,用逻辑造梦。',
@@ -933,6 +934,7 @@
                     'nav.projects': '/ Works',
                     'nav.journey': '/ Journey',
                     'nav.skills': '/ Soul',
+                    'hero.tag1': 'Indie Game Developer',
                     'hero.tag2': 'Dreamer',
                     'hero.tag3': 'Code & Art',
                     'hero.line1': 'Write poetry in code. Dream in logic.',

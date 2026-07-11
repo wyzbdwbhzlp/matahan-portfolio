@@ -1,0 +1,150 @@
+/*
+ * Design Tokens for matahan-portfolio
+ * -----------------------------------
+ * 这份文件是站点视觉风格的机器可读来源。
+ * 风格关键词：极光像素复古游戏终端 / Aurora Pixel Retro Terminal.
+ * 新页面、新组件和后续重构优先复用这里的变量，再补充局部样式。
+ */
+
+:root {
+	/* === 风格基调 === */
+	--style-art-direction: 'aurora-pixel-retro-terminal';
+	--style-keywords: 'Pixel Art, Indie Game, Aurora Night, CRT Glitch, Retro Terminal';
+
+	/* === 品牌色：极光 === */
+	--aurora-green: #4ade80;
+	--aurora-green-rgb: 74 222 128;
+	--aurora-teal: #2dd4bf;
+	--aurora-cyan: #06b6d4;
+	--aurora-violet: #8b5cf6;
+	--aurora-pink: #ec4899;
+	--aurora-danger: #ff003c;
+	--aurora-blue: #00b8ff;
+
+	/* === 油墨色：文字与边框 === */
+	--ink-1000: #050b1a;
+	--ink-900: #0a0a0a;
+	--ink-800: #1a1a1a;
+	--ink-700: #2a2a2a;
+	--ink-600: #404040;
+	--ink-500: #666666;
+	--ink-400: #a0a0a0;
+	--ink-300: #c0c0c0;
+	--ink-200: #d9d9d9;
+
+	/* === 纸张色：内容区背景 === */
+	--paper-50: #fafaf7;
+	--paper-100: #f5f3ed;
+	--paper-200: #ebe7dc;
+	--paper-300: #ddd8c8;
+
+	/* === 雾气与高光 === */
+	--aurora-mist: #e6f0e0;
+	--white: #ffffff;
+
+	/* === 深空渐变（Hero 夜空） === */
+	--sky-deep: #050b1a;
+	--sky-mid: #0a1228;
+	--sky-light: #0f1e3d;
+	--sky-floor: #020610;
+	--gradient-aurora-sky:
+		radial-gradient(ellipse 70% 50% at 50% 75%, rgba(74, 222, 128, 0.12), transparent 60%),
+		radial-gradient(ellipse 50% 40% at 30% 80%, rgba(139, 92, 246, 0.15), transparent 60%),
+		radial-gradient(ellipse 60% 45% at 75% 70%, rgba(45, 212, 191, 0.12), transparent 60%),
+		linear-gradient(180deg, var(--sky-deep), var(--sky-mid) 25%, var(--sky-light) 50%, var(--sky-mid) 80%, var(--sky-floor));
+	--gradient-aurora-curtain:
+		linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.25) 25%, rgba(45, 212, 191, 0.35) 50%, rgba(139, 92, 246, 0.25) 75%, transparent);
+	--gradient-paper:
+		radial-gradient(ellipse at top right, rgba(74, 222, 128, 0.05), transparent 60%),
+		radial-gradient(ellipse at bottom left, rgba(139, 92, 246, 0.03), transparent 60%),
+		var(--white);
+
+	/* === 字体栈 === */
+	--font-display: 'Orbitron', sans-serif;
+	--font-pixel: 'Press Start 2P', 'VT323', 'DotGothic16', monospace;
+	--font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+	--font-chinese-pixel: 'ZCOOL QingKe HuangYou', 'Press Start 2P', sans-serif;
+	--font-body: var(--font-atkinson, system-ui), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--tracking-pixel-tight: 0.01em;
+	--tracking-pixel-wide: 0.1em;
+	--tracking-terminal: 0.05em;
+	--line-height-pixel: 1.7;
+	--line-height-compact: 1.25;
+	--text-hero-min: 4.5rem;
+	--text-hero-fluid: 14vw;
+	--text-hero-max: 9.5rem;
+
+	/* === 阴影 === */
+	--shadow-hard: 6px 6px 0 #1a1a1a;
+	--shadow-hard-sm: 4px 4px 0 hsla(0, 0%, 4%, 0.15);
+	--shadow-hard-green: 9px 9px 0 var(--aurora-green);
+	--shadow-card: 6px 6px 0 #1a1a1a;
+	--shadow-glow-green: 0 0 16px rgba(var(--aurora-green-rgb), 0.9), 0 0 32px rgba(var(--aurora-green-rgb), 0.4);
+	--shadow-glow-soft: 0 0 8px rgba(var(--aurora-green-rgb), 0.7);
+	--shadow-glitch-red: 3px 3px 0 var(--aurora-danger);
+	--shadow-glitch-blue: 6px 6px 0 var(--aurora-blue);
+	--shadow-hero-name:
+		drop-shadow(4px 4px 0 rgba(74, 222, 128, 0.85))
+		drop-shadow(8px 8px 0 rgba(45, 212, 191, 0.55))
+		drop-shadow(2px 6px 0 rgba(5, 11, 26, 0.7));
+
+	/* === 间距 === */
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
+	--space-2xl: 3rem;
+	--space-3xl: 4rem;
+
+	/* === 布局 === */
+	--content-max: 72rem;
+	--prose-max: 45rem;
+	--nav-max: 80rem;
+	--hero-min-height: 100vh;
+	--section-y: 6rem;
+	--section-y-lg: 8rem;
+
+	/* === 过渡与缓动 === */
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+	--duration-fast: 0.15s;
+	--duration-base: 0.3s;
+	--duration-reveal: 0.7s;
+	--duration-slow: 1.2s;
+
+	/* === 像素边框 === */
+	--border-pixel: 4px solid var(--ink-900);
+	--border-pixel-thin: 2px solid var(--ink-700);
+	--radius-pixel: 0;
+	--radius-soft: 4px;
+
+	/* === 组件原语 === */
+	--card-bg: var(--white);
+	--card-border: var(--border-pixel);
+	--card-shadow: var(--shadow-card);
+	--card-shadow-hover: var(--shadow-hard-green);
+	--button-border: 2px solid var(--ink-900);
+	--button-shadow: var(--shadow-hard-sm);
+	--tag-bg: var(--white);
+	--tag-border: 2px solid rgba(42, 42, 42, 0.2);
+	--tag-active-bg: rgba(74, 222, 128, 0.05);
+	--tag-active-border: 2px solid var(--aurora-green);
+	--skill-bar-bg: var(--paper-100);
+	--skill-bar-fill: var(--aurora-green);
+
+	/* === CRT / 故障 / 互动层级 === */
+	--crt-scanline-color: rgba(5, 11, 26, 0.03);
+	--crt-scanband-color: rgba(74, 222, 128, 0.15);
+	--crt-noise-opacity: 0.05;
+	--z-crt: 9990;
+	--z-konami: 99980;
+	--z-adventure: 99995;
+	--z-cursor: 100000;
+
+	/* === 像素纹理 === */
+	--pixel-grid-size: 16px;
+	--pixel-grid-green: rgba(74, 222, 128, 0.06);
+	--pixel-snow-size: 2px;
+	--pixel-cloud-color: var(--paper-200);
+}
