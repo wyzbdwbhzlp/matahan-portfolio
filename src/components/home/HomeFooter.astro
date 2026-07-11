@@ -1,0 +1,40 @@
+---
+import { CONTACT_EMAIL, GITHUB_URL } from '../../consts';
+---
+
+<footer class="relative py-12 border-t-2 border-aurora-green/30 bg-paper-50/50">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <div class="font-display font-bold text-lg mb-1">
+                    <span class="text-ink-900">WU</span><span class="text-aurora-green">.</span><span class="text-ink-900">HAOHAN</span>
+                </div>
+                <p class="text-ink-500 text-xs font-mono" data-i18n="footer.copyright">
+                    © 2026 Wu Haohan. Crafted with <span class="text-aurora-green">♥</span> · Hosted on <a href="https://matahan.com" class="text-ink-800 hover:text-aurora-green transition-colors underline-offset-4 hover:underline">matahan.com</a>.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href={GITHUB_URL} target="_blank" rel="noopener" class="group flex items-center gap-2 px-4 py-2 border-2 border-ink-700/20 hover:border-aurora-green hover:text-aurora-green transition-all duration-300 rounded-none">
+                    <svg class="w-4 h-4 text-ink-500 group-hover:text-aurora-green transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    <span class="text-xs font-mono group-hover:text-aurora-green transition-colors">GitHub</span>
+                </a>
+                <a href={`mailto:${CONTACT_EMAIL}`} class="group flex items-center gap-2 px-4 py-2 border-2 border-ink-700/20 hover:border-aurora-green hover:text-aurora-green transition-all duration-300 rounded-none">
+                    <svg class="w-4 h-4 text-ink-500 group-hover:text-aurora-green transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span class="text-xs font-mono group-hover:text-aurora-green transition-colors">Email</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t-2 border-aurora-green/20 text-center">
+            <p class="text-xs text-ink-500 font-mono" data-i18n="footer.signature">
+                <span class="text-aurora-green font-semibold">$</span> echo "Games are the highest form of art."
+                <span class="animate-blink text-aurora-green">▊</span>
+            </p>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,79 @@
+---
+import { projects } from '../../data/projects';
+---
+
+<section id="projects" class="relative py-24 md:py-32 bg-paper-50/50">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-aurora-green font-pixel text-sm font-semibold">01.</span>
+                <h2 class="font-pixel pixel-h2 text-base sm:text-lg md:text-xl text-ink-900">
+                    <span class="ember-text">▍</span> <span data-i18n="proj.heading">SELECTED WORKS</span>
+                </h2>
+            </div>
+            <p class="text-ink-500 ml-12 font-pixel text-xs sm:text-sm" data-i18n="proj.subtitle">四颗心,从 Game Jam 走到展会 · Code &amp; Soul</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {projects.map((project) => (
+                <div class="card-3d">
+                    <article
+                        class:list={[
+                            'glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden',
+                            project.cardModifier,
+                        ]}
+                        style={project.transitionDelay ? `transition-delay: ${project.transitionDelay};` : undefined}
+                    >
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class:list={['w-2 h-2 rounded-none animate-pulse', project.pulseClass]}></span>
+                                <span class="text-xs text-ink-500 font-mono">{project.fileLabel}</span>
+                            </div>
+                            <span class={project.status.className} data-i18n={project.status.i18nKey}>
+                                {project.status.fallback}
+                            </span>
+                        </div>
+
+                        <div class="relative h-44 mb-6 border-4 border-ink-900 overflow-hidden pixel-thumb flex items-center justify-center">
+                            <div class="relative z-10 text-center">
+                                <div class="font-pixel text-2xl text-ink-900 mb-3">{project.icon}</div>
+                                <div class="text-[9px] text-aurora-green font-pixel">{project.visualLabel}</div>
+                            </div>
+                            <span class="absolute top-2 left-2 text-[10px] text-ink-900 font-pixel">┌─</span>
+                            <span class="absolute top-2 right-2 text-[10px] text-ink-900 font-pixel">─┐</span>
+                            <span class="absolute bottom-2 left-2 text-[10px] text-ink-900 font-pixel">└─</span>
+                            <span class="absolute bottom-2 right-2 text-[10px] text-ink-900 font-pixel">─┘</span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            {project.tags.map((tag) => (
+                                <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                    {tag.fallback}
+                                </span>
+                            ))}
+                        </div>
+
+                        <h3 class="font-mono font-bold text-lg sm:text-xl text-ink-900 mb-3 group-hover:text-aurora-green transition-colors uppercase tracking-tight">
+                            <span data-i18n={project.title.i18nKey}>{project.title.fallback}</span>
+                            {project.title.suffix && <span class="text-ink-500 text-lg"> {project.title.suffix}</span>}
+                        </h3>
+
+                        <p
+                            class="text-ink-600 leading-relaxed text-xs sm:text-sm mb-4 font-pixel"
+                            data-i18n={project.description.i18nKey}
+                            set:html={project.description.fallbackHtml}
+                        />
+
+                        <div class="pt-4 border-t-2 border-ink-700/10 flex items-center justify-between text-xs font-mono text-ink-500">
+                            <span>// STACK</span>
+                            <span data-i18n={project.stack.i18nKey}>{project.stack.fallback}</span>
+                        </div>
+
+                        <div class="card-shine"></div>
+                    </article>
+                </div>
+            ))}
+
+        </div>
+    </div>
+</section>

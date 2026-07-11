@@ -1,0 +1,74 @@
+---
+import { skillPanels } from '../../data/skills';
+---
+
+<section id="skills" class="relative py-24 md:py-32 bg-paper-50/50">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-aurora-green font-pixel text-sm font-semibold">03.</span>
+                <h2 class="font-pixel pixel-h2 text-base sm:text-lg md:text-xl text-ink-900">
+                    <span class="ember-text">▍</span> <span data-i18n="skills.heading">SKILLS &amp; SOUL</span>
+                </h2>
+            </div>
+            <p class="text-ink-500 ml-12 font-pixel text-xs sm:text-sm" data-i18n="skills.subtitle">开发利器 × 独立之魂 × 艺术触觉</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+            {skillPanels.map((panel) => (
+                <div
+                    class={panel.cardClass}
+                    style={panel.transitionDelay ? `transition-delay: ${panel.transitionDelay};` : undefined}
+                >
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 border-2 border-ink-700/15 bg-white flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                {panel.iconPaths.map((path) => (
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={path} />
+                                ))}
+                            </svg>
+                        </div>
+                        <h3 class="font-mono font-bold text-base text-ink-900 uppercase tracking-wide" data-i18n={panel.title.i18nKey}>
+                            {panel.title.fallback}
+                        </h3>
+                    </div>
+
+                    {panel.bars && (
+                        <div class="space-y-5">
+                            {panel.bars.map((bar) => (
+                                <div>
+                                    <div class="flex items-center justify-between mb-2 text-sm">
+                                        <span class="text-ink-800 font-medium">{bar.name}</span>
+                                        <span class="text-aurora-green font-mono text-xs font-semibold">{bar.value}%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar-fill" data-width={`${bar.value}%`}></div></div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {panel.tags && (
+                        <div class="flex flex-wrap gap-2.5">
+                            {panel.tags.map((tag) => (
+                                <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                    {tag.fallback}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+
+                    {panel.note && (
+                        <div class="mt-6 pt-6 border-t-2 border-ink-700/10">
+                            <p
+                                class="text-xs text-ink-500 font-pixel leading-relaxed"
+                                data-i18n={panel.note.i18nKey}
+                                set:html={panel.note.fallbackHtml}
+                            />
+                        </div>
+                    )}
+                </div>
+            ))}
+
+        </div>
+    </div>
+</section>

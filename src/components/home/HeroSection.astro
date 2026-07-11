@@ -1,0 +1,103 @@
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden celeste-sky">
+    <div class="aurora-curtain" aria-hidden="true"></div>
+
+    <svg class="constellation" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <g stroke="#ffffff" stroke-width="0.12" stroke-linecap="round" fill="none" opacity="0.45">
+            <line x1="8" y1="4" x2="28" y2="5" />
+            <line x1="28" y1="5" x2="40" y2="11" />
+            <line x1="40" y1="11" x2="52" y2="3" />
+            <line x1="52" y1="3" x2="76" y2="5" />
+            <line x1="76" y1="5" x2="95" y2="4" />
+            <line x1="35" y1="17" x2="58" y2="14" />
+        </g>
+        <g fill="#d1fae5">
+            <circle r="0.6" opacity="0.9">
+                <animate attributeName="cx" values="8;28;40;52;76;95" dur="11s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="4;5;11;3;5;4" dur="11s" repeatCount="indefinite" />
+            </circle>
+            <circle r="0.5" fill="#a7f3d0" opacity="0.9">
+                <animate attributeName="cx" values="35;58" dur="8s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="17;14" dur="8s" repeatCount="indefinite" />
+            </circle>
+            <circle r="0.4" fill="#c7d2fe" opacity="0.8">
+                <animate attributeName="cx" values="28;40;52" dur="7s" repeatCount="indefinite" />
+                <animate attributeName="cy" values="5;11;3" dur="7s" repeatCount="indefinite" />
+            </circle>
+        </g>
+    </svg>
+
+    <div class="pixel-snow" id="pixel-snow" aria-hidden="true"></div>
+
+    <div class="celeste-mountains" aria-hidden="true">
+        <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="height: 60%;">
+            <polygon fill="#0a1228" points="0,200 80,140 140,160 220,90 320,130 400,100 480,140 560,110 660,150 760,80 840,130 940,100 1040,140 1120,110 1200,140 1200,200"/>
+        </svg>
+        <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="height: 100%;">
+            <polygon fill="#020610" points="0,200 60,180 140,150 240,170 340,130 440,160 540,140 640,170 760,150 860,180 960,160 1080,180 1200,160 1200,200"/>
+        </svg>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 py-32 text-center">
+        <h1 class="font-display font-black tracking-tighter mb-3 reveal">
+            <span class="whh-name"><span class="whh-letter">W</span><span class="whh-letter">H</span><span class="whh-letter">H</span></span>
+        </h1>
+        <p class="text-aurora-mist/55 font-pixel text-xs sm:text-sm tracking-[0.2em] mb-6 reveal" style="transition-delay:0.05s;">WU · HAOHAN</p>
+
+        <div class="flex items-center justify-center mb-8 reveal" style="transition-delay: 0.1s;">
+            <span class="font-pixel text-sm sm:text-lg tracking-[0.15em] text-aurora-mist/85 uppercase" data-i18n="hero.tag1">Indie Game Developer</span>
+        </div>
+
+        <div
+            class="max-w-3xl mx-auto mb-12 reveal"
+            style="transition-delay: 0.2s;"
+            id="hero-typewriter-wrap"
+            data-line-1-key="hero.line1"
+            data-line-2-key="hero.line2"
+            data-line-3-key="hero.line3"
+        >
+            <p class="font-pixel text-sm sm:text-base md:text-lg celeste-hero-text leading-relaxed mb-2" id="tw-line-1"></p>
+            <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/80 leading-relaxed mb-2" id="tw-line-2"></p>
+            <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/60 leading-relaxed" id="tw-line-3"></p>
+            <noscript>
+                <p class="font-pixel text-sm sm:text-base md:text-lg celeste-hero-text leading-relaxed mb-2" data-i18n="hero.line1">用代码写诗,用逻辑造梦。</p>
+                <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/80 leading-relaxed mb-2" data-i18n="hero.line2">从 Game Jam 的灵光一闪,到触碰人心的虚拟世界。</p>
+                <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/60 leading-relaxed" data-i18n="hero.line3">我不只是在做游戏,我在构建我所热爱的宇宙。</p>
+            </noscript>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal font-pixel text-xs sm:text-sm" style="transition-delay: 0.5s;">
+            <a href="#projects" class="btn-primary">
+                <span data-i18n="cta.projects">探索我的宇宙 (Projects)</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+            <a href="#journey" class="btn-secondary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span data-i18n="cta.journey">我的旅程 (Journey)</span>
+            </a>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 reveal" style="transition-delay: 0.7s;">
+            <div class="flex flex-col items-center gap-2 text-aurora-mist/70 text-xs animate-float">
+                <span data-i18n="hero.scroll">SCROLL DOWN</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute top-24 right-6 z-30 flex flex-col gap-2 reveal" style="transition-delay: 1s;">
+        <button id="start-adventure" type="button" aria-label="开始 1-bit 冒险游戏"
+            class="px-3 py-2 bg-black/60 border-2 border-aurora-green text-aurora-green font-pixel text-xs hover:bg-aurora-green hover:text-black transition-colors flex items-center gap-2">
+            <span>▶</span><span>START</span>
+        </button>
+        <button id="audio-toggle" type="button" aria-label="开关极光环境音"
+            class="px-3 py-2 bg-black/60 border-2 border-aurora-mist/40 text-aurora-mist/80 font-pixel text-xs hover:border-aurora-green hover:text-aurora-green transition-colors flex items-center gap-2">
+            <span id="audio-icon">🔇</span><span>AURORA</span>
+        </button>
+    </div>
+</section>

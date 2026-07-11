@@ -1,0 +1,66 @@
+---
+import { journeyItems } from '../../data/journey';
+---
+
+<section id="journey" class="relative py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-16 reveal">
+            <div class="flex items-center gap-3 mb-3 flex-wrap">
+                <span class="text-aurora-green font-pixel text-sm font-semibold">02.</span>
+                <h2 class="font-pixel pixel-h2 text-base sm:text-lg md:text-xl text-ink-900">
+                    <span class="ember-text">▍</span> <span data-i18n="journey.heading">THE JOURNEY</span>
+                </h2>
+            </div>
+            <p class="text-ink-500 ml-12 font-pixel text-xs sm:text-sm" data-i18n="journey.subtitle">从灵光一现到触碰人心 · 仍在继续</p>
+        </div>
+
+        <div class="relative">
+            <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 pixel-axis" aria-hidden="true"></div>
+            <div class="timeline-cursor hidden md:block" aria-hidden="true"></div>
+
+            {journeyItems.map((item, index) => (
+                <div class:list={['relative reveal', index < journeyItems.length - 1 && 'mb-12 md:mb-16']}>
+                    <div class:list={['timeline-node', item.nodeClass]} style="top: 0.5rem;"></div>
+
+                    <div class="md:grid md:grid-cols-2 md:gap-12">
+                        <div class={item.dateColumnClass}>
+                            <div class:list={['inline-block md:block', item.dateInnerClass]}>
+                                <div class={item.dateClass} data-i18n={item.date.i18nKey}>
+                                    {item.date.fallback}
+                                </div>
+                                <div class="text-ink-500 text-xs sm:text-sm mt-1 font-pixel" data-i18n={item.status.i18nKey}>
+                                    {item.status.fallback}
+                                </div>
+                            </div>
+                        </div>
+                        <div class={item.cardColumnClass}>
+                            <div class={item.cardInnerClass}>
+                                <div class={item.cardClass}>
+                                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                                        {item.tags.map((tag) => (
+                                            <span class:list={['tag', tag.className]} data-i18n={tag.i18nKey}>
+                                                {tag.fallback}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <h3
+                                        class="font-mono font-bold text-base md:text-lg text-ink-900 mb-2 uppercase tracking-tight"
+                                        data-i18n={item.title.i18nKey}
+                                    >
+                                        {item.title.fallback}
+                                    </h3>
+                                    <p
+                                        class="text-ink-600 leading-relaxed text-xs sm:text-sm md:text-base font-pixel"
+                                        data-i18n={item.description.i18nKey}
+                                        set:html={item.description.fallbackHtml}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+
+        </div>
+    </div>
+</section>
