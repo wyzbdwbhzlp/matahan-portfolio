@@ -55,3 +55,5 @@ document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) =>
         window.scrollTo({ top, behavior: 'smooth' });
     });
 });
+
+export {};

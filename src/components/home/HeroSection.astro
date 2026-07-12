@@ -51,9 +51,9 @@
             class="max-w-3xl mx-auto mb-12 reveal"
             style="transition-delay: 0.2s;"
             id="hero-typewriter-wrap"
-            data-line-1-key="hero.line1"
-            data-line-2-key="hero.line2"
-            data-line-3-key="hero.line3"
+            data-line1-key="hero.line1"
+            data-line2-key="hero.line2"
+            data-line3-key="hero.line3"
         >
             <p class="font-pixel text-sm sm:text-base md:text-lg celeste-hero-text leading-relaxed mb-2" id="tw-line-1"></p>
             <p class="font-pixel text-sm sm:text-base md:text-lg text-aurora-mist/80 leading-relaxed mb-2" id="tw-line-2"></p>
@@ -91,11 +91,11 @@
     </div>
 
     <div class="absolute top-24 right-6 z-30 flex flex-col gap-2 reveal" style="transition-delay: 1s;">
-        <button id="start-adventure" type="button" aria-label="开始 1-bit 冒险游戏"
+        <button id="start-adventure" type="button" aria-label="开始 1-bit 冒险游戏" aria-controls="adventure-game" aria-expanded="false"
             class="px-3 py-2 bg-black/60 border-2 border-aurora-green text-aurora-green font-pixel text-xs hover:bg-aurora-green hover:text-black transition-colors flex items-center gap-2">
             <span>▶</span><span>START</span>
         </button>
-        <button id="audio-toggle" type="button" aria-label="开关极光环境音"
+        <button id="audio-toggle" type="button" aria-label="开关极光环境音" aria-pressed="false"
             class="px-3 py-2 bg-black/60 border-2 border-aurora-mist/40 text-aurora-mist/80 font-pixel text-xs hover:border-aurora-green hover:text-aurora-green transition-colors flex items-center gap-2">
             <span id="audio-icon">🔇</span><span>AURORA</span>
         </button>

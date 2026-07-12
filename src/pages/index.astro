@@ -6,7 +6,9 @@ import HeroSection from '../components/home/HeroSection.astro';
 import JourneySection from '../components/home/JourneySection.astro';
 import ProjectsSection from '../components/home/ProjectsSection.astro';
 import SkillsSection from '../components/home/SkillsSection.astro';
+import '../styles/fonts.css';
 import '../styles/design-tokens.css';
+import '../styles/home.css';
 ---
 
 <!DOCTYPE html>
@@ -17,13 +19,6 @@ import '../styles/design-tokens.css';
     <meta name="description" content="Wu Haohan — 独立游戏开发者 | Indie Game Developer · 用代码与逻辑构建虚拟世界" />
     <title>Wu Haohan | Indie Game Developer</title>
 
-    <!-- ========== 外部依赖:字体 + 预编译 Tailwind ========== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&family=DotGothic16&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet" />
-
-    <!-- Tailwind CSS 预编译版(由 ./tailwindcss build 生成,~38KB) -->
-    <link rel="stylesheet" href="/tw.css" />
 </head>
 
 <body class="relative overflow-x-hidden">

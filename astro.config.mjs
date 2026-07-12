@@ -6,11 +6,16 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    // 1. 设置你的正式网站地址
-    site: 'http://matahan.com',
+    site: 'https://matahan.com',
     
     // 2. 集成插件
     integrations: [mdx(), sitemap()],
+
+    vite: {
+        build: {
+            assetsInlineLimit: 0,
+        },
+    },
     
     // 3. 字体配置
     fonts: [

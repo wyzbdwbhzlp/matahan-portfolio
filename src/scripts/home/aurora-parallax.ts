@@ -1,6 +1,7 @@
 const hero = document.querySelector<HTMLElement>('.celeste-sky');
+const supportsParallax = window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches;
 
-if (hero) {
+if (hero && supportsParallax) {
     let frameId: number | undefined;
 
     hero.addEventListener('mousemove', (event) => {
@@ -20,3 +21,5 @@ if (hero) {
         hero.style.setProperty('--p-y', '0px');
     });
 }
+
+export {};

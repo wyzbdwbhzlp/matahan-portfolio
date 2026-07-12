@@ -1,6 +1,13 @@
 import './i18n.js';
 import './typewriter';
 import './aurora-parallax';
+import './adventure.js';
+import './aurora-audio.js';
 import './page-effects';
 import './page-interactions';
-import './legacy.js';
+import './constellations.js';
+import './crt-glitch.js';
+import './console-easter-egg.js';
+import './custom-cursor.js';
+import './konami.js';
+import './cards-3d.js';

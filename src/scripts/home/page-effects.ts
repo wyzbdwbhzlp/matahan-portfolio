@@ -1,10 +1,13 @@
 const snowContainer = document.getElementById('pixel-snow');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const usesConstrainedEffects = window.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
 
-if (snowContainer) {
+if (snowContainer && !prefersReducedMotion) {
     const sizeClasses = ['', 's2', 's3'];
     const colorClasses = ['', '', 'c1', 'c1', 'c2', 'c3'];
+    const flakeCount = usesConstrainedEffects ? 20 : 50;
 
-    for (let index = 0; index < 50; index += 1) {
+    for (let index = 0; index < flakeCount; index += 1) {
         const flake = document.createElement('div');
         const sizeClass = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
         const colorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
@@ -33,3 +36,5 @@ function updateGlitchHeadings() {
 
 updateGlitchHeadings();
 window.addEventListener('home:language-change', updateGlitchHeadings);
+
+export {};

@@ -19,6 +19,7 @@ const keys = wrap
     : [];
 
 let runId = 0;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function typeInto(element: HTMLElement, html: string, activeRun: number, onDone: () => void) {
     const tokens = html.match(/(<[^>]+>|[^<])/g) ?? [];
@@ -59,6 +60,11 @@ function start(language: Language) {
     const activeRun = ++runId;
     const text = translationKeys.map((key) => dictionary[key] ?? '');
     typedLines.forEach((line) => { line.innerHTML = ''; });
+
+    if (prefersReducedMotion) {
+        typedLines.forEach((line, index) => { line.innerHTML = text[index]; });
+        return;
+    }
 
     typeInto(typedLines[0], text[0], activeRun, () => {
         window.setTimeout(() => {

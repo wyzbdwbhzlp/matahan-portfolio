@@ -1,0 +1,951 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-paper text-ink-900 font-mono antialiased;
+        background-image:
+            radial-gradient(ellipse at top right, rgba(74, 222, 128, 0.05), transparent 60%),
+            radial-gradient(ellipse at bottom left, rgba(139, 92, 246, 0.03), transparent 60%);
+        background-attachment: fixed;
+    }
+    ::selection {
+        background: rgba(74, 222, 128, 0.3);
+        color: #0a0a0a;
+    }
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #fafaf7;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #d8d2c0;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #4ade80;
+    }
+}
+
+@layer components {
+    /* ========== Hero 极光夜空:深蓝黑底 + 极光带 + 极光星点 + 像素山剪影 ========== */
+    .celeste-sky {
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(ellipse 70% 50% at 50% 75%, rgba(74, 222, 128, 0.12), transparent 60%),
+            radial-gradient(ellipse 50% 40% at 30% 80%, rgba(139, 92, 246, 0.15), transparent 60%),
+            radial-gradient(ellipse 60% 45% at 75% 70%, rgba(45, 212, 191, 0.12), transparent 60%),
+            linear-gradient(180deg,
+                #050b1a 0%,
+                #0a1228 25%,
+                #0f1e3d 50%,
+                #0a1228 80%,
+                #020610 100%);
+    }
+    /* 极光带(主):多层错位 radial-gradient + 模糊 + 漂移动效 + 鼠标视差 */
+    @property --p-x {
+        syntax: '<length>';
+        inherits: true;
+        initial-value: 0px;
+    }
+    @property --p-y {
+        syntax: '<length>';
+        inherits: true;
+        initial-value: 0px;
+    }
+    .celeste-sky {
+        transition: --p-x 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), --p-y 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .celeste-sky::before {
+        content: '';
+        position: absolute;
+        top: 5%;
+        left: -20%;
+        width: 140%;
+        height: 55%;
+        background:
+            radial-gradient(ellipse 30% 80% at 20% 50%, rgba(74, 222, 128, 0.55), transparent 70%),
+            radial-gradient(ellipse 30% 80% at 45% 50%, rgba(45, 212, 191, 0.5), transparent 70%),
+            radial-gradient(ellipse 30% 80% at 70% 50%, rgba(139, 92, 246, 0.4), transparent 70%),
+            radial-gradient(ellipse 25% 70% at 90% 60%, rgba(6, 182, 212, 0.4), transparent 70%);
+        filter: blur(40px);
+        animation: auroraDrift 18s ease-in-out infinite alternate;
+        animation-composition: add;
+        transform: translate(var(--p-x), var(--p-y));
+        pointer-events: none;
+    }
+    /* 极光星点(白色 + 8-bit 像素块) */
+    .celeste-sky::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(2px 2px at 8% 4%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 18% 9%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 28% 5%, #d1fae5 100%, transparent),
+            radial-gradient(2px 2px at 40% 11%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 52% 3%, #a7f3d0 100%, transparent),
+            radial-gradient(2px 2px at 64% 8%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 76% 5%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 88% 10%, #d1fae5 100%, transparent),
+            radial-gradient(2px 2px at 95% 4%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 12% 15%, #a7f3d0 100%, transparent),
+            radial-gradient(2px 2px at 35% 17%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 58% 14%, #ffffff 100%, transparent),
+            radial-gradient(2px 2px at 82% 16%, #d1fae5 100%, transparent);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        opacity: 0.9;
+        z-index: 1;
+    }
+    @keyframes auroraDrift {
+        0%   { transform: translateX(0) scaleY(1); opacity: 0.85; }
+        50%  { transform: translateX(4%) scaleY(1.05); opacity: 1; }
+        100% { transform: translateX(-4%) scaleY(0.95); opacity: 0.8; }
+    }
+    /* 极光细丝(可选装饰层)+ 鼠标视差 */
+    .aurora-curtain {
+        position: absolute;
+        top: 8%;
+        left: -30%;
+        width: 160%;
+        height: 35%;
+        background:
+            linear-gradient(90deg,
+                transparent 0%,
+                rgba(74, 222, 128, 0.25) 25%,
+                rgba(45, 212, 191, 0.35) 50%,
+                rgba(139, 92, 246, 0.25) 75%,
+                transparent 100%);
+        filter: blur(30px);
+        transform: translate(calc(var(--p-x, 0px) * 1.5), calc(var(--p-y, 0px) * 0.8)) skewY(-4deg);
+        animation: auroraCurtain 22s ease-in-out infinite alternate;
+        animation-composition: add;
+        pointer-events: none;
+        z-index: 1;
+    }
+    @keyframes auroraCurtain {
+        0%   { transform: skewY(-4deg) translateX(0); opacity: 0.5; }
+        50%  { transform: skewY(-2deg) translateX(6%); opacity: 0.9; }
+        100% { transform: skewY(-6deg) translateX(-6%); opacity: 0.4; }
+    }
+    /* ========== 像素雪粒子(8-bit 风):极光夜空下飘雪 ========== */
+    .pixel-snow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        overflow: hidden;
+    }
+    .pixel-snow .flake {
+        position: absolute;
+        top: -10px;
+        width: 2px;
+        height: 2px;
+        background: #ffffff;
+        box-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+        animation: snowFall linear infinite;
+        will-change: transform, opacity;
+    }
+    .pixel-snow .flake.s2 { width: 3px; height: 3px; }
+    .pixel-snow .flake.s3 { width: 4px; height: 4px; }
+    .pixel-snow .flake.c1 { background: #d1fae5; box-shadow: 0 0 4px rgba(74, 222, 128, 0.7); }
+    .pixel-snow .flake.c2 { background: #a7f3d0; box-shadow: 0 0 4px rgba(45, 212, 191, 0.7); }
+    .pixel-snow .flake.c3 { background: #c7d2fe; box-shadow: 0 0 4px rgba(139, 92, 246, 0.6); }
+    @keyframes snowFall {
+        0%   { transform: translate3d(0, -10px, 0); opacity: 0; }
+        8%   { opacity: 1; }
+        50%  { transform: translate3d(15px, 50vh, 0); }
+        92%  { opacity: 1; }
+        100% { transform: translate3d(25px, 105vh, 0); opacity: 0; }
+    }
+    @keyframes snowFallLeft {
+        0%   { transform: translate3d(0, -10px, 0); opacity: 0; }
+        8%   { opacity: 1; }
+        50%  { transform: translate3d(-18px, 50vh, 0); }
+        92%  { opacity: 1; }
+        100% { transform: translate3d(-30px, 105vh, 0); opacity: 0; }
+    }
+    /* 像素山剪影(2 层视差,在极光夜空下用深蓝/近黑)+ 极慢呼吸 */
+    .celeste-mountains {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 35%;
+        pointer-events: none;
+        z-index: 2;
+        animation: mountainBreathe 8s ease-in-out infinite;
+    }
+    @keyframes mountainBreathe {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-2px); }
+    }
+    /* 星座连线层(在极光带之上,星点之上,雪之下) */
+    .constellation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 65%;
+        pointer-events: none;
+        z-index: 2;
+    }
+    /* 白底区 1-bit 星座连线(深墨色细线 + 极光星点 + 流光光标) */
+    .constellation-light {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+    .celeste-mountains svg {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    /* Hero 区文字:在极光夜空上用米白偏绿 + 极光绿光晕 */
+    .celeste-hero-text {
+        color: #e6f0e0;
+        text-shadow: 0 0 24px rgba(74, 222, 128, 0.4), 0 2px 8px rgba(5, 11, 26, 0.6);
+    }
+
+    /* WHH 主名:大字号 + 白色 + 1-bit 极光绿硬阴影 */
+    .whh-name {
+        display: inline-block;
+        font-size: clamp(4.5rem, 14vw, 9.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        color: #ffffff;
+        filter:
+            drop-shadow(4px 4px 0 rgba(74, 222, 128, 0.85))
+            drop-shadow(8px 8px 0 rgba(45, 212, 191, 0.55))
+            drop-shadow(2px 6px 0 rgba(5, 11, 26, 0.7));
+    }
+    .whh-letter {
+        display: inline-block;
+        color: inherit;
+        text-shadow: none;
+    }
+
+    /* 网格背景:极光色极弱 */
+    .grid-bg {
+        background-image:
+            linear-gradient(rgba(74, 222, 128, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(74, 222, 128, 0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* 1-bit 像素卡片:实色白底 + 厚黑边 + 1-bit 硬阴影 + 直角 */
+    .glass-card {
+        @apply bg-white border-4 border-ink-900 rounded-none;
+        box-shadow: 6px 6px 0 #1a1a1a;
+        transition: transform 0.18s steps(3, end), box-shadow 0.18s steps(3, end);
+    }
+    .glass-card:hover {
+        @apply border-ink-900;
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 #4ade80;
+    }
+    .glass-card.hover-dream:hover,
+    .glass-card.hover-ember:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 #4ade80;
+    }
+
+    .terminal {
+        @apply bg-paper-50 border border-ink-700/15 rounded p-3 font-mono text-sm;
+    }
+
+    /* 主按钮:黑底白字 + 直角(8-bit 风格) */
+    .btn-primary {
+        @apply inline-flex items-center gap-2 px-6 py-3 bg-ink-900 text-white border-2 border-ink-900 font-semibold tracking-wider rounded-none transition-all duration-300;
+        box-shadow: 4px 4px 0 rgba(10, 10, 10, 0.15);
+    }
+    .btn-primary:hover {
+        @apply bg-aurora-green border-aurora-green text-aurora-dark;
+        box-shadow: 6px 6px 0 #1a1a1a;
+        transform: translate(-2px, -2px);
+    }
+    .btn-primary:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    /* 次按钮:白底黑边 + 直角 */
+    .btn-secondary {
+        @apply inline-flex items-center gap-2 px-6 py-3 bg-white text-ink-900 border-2 border-ink-900 font-semibold tracking-wider rounded-none transition-all duration-300;
+        box-shadow: 4px 4px 0 #1a1a1a;
+    }
+    .btn-secondary:hover {
+        @apply bg-aurora-violet border-aurora-violet text-white;
+        box-shadow: 6px 6px 0 #1a1a1a;
+        transform: translate(-2px, -2px);
+    }
+    .btn-secondary:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    /* 主文字高亮:极光绿(无 glow,纯色) */
+    .ember-text {
+        color: #4ade80;
+    }
+    /* section 主标题:Press Start 2P + 紧排 1-bit 风格 */
+    .pixel-h2 {
+        font-family: 'Press Start 2P', monospace;
+        letter-spacing: 0.04em;
+        line-height: 1.25;
+    }
+    /* 1-bit 像素虚线(主轴) */
+    .pixel-axis {
+        background-image: linear-gradient(
+            to bottom,
+            #4ade80 0,
+            #4ade80 6px,
+            transparent 6px,
+            transparent 12px
+        );
+        background-size: 4px 12px;
+        background-repeat: repeat-y;
+    }
+    /* 项目缩略图:1-bit 像素底色 */
+    .pixel-thumb {
+        background-color: #f5f3ed;
+        background-image:
+            linear-gradient(45deg, rgba(74, 222, 128, 0.06) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(74, 222, 128, 0.06) 25%, transparent 25%);
+        background-size: 16px 16px;
+    }
+    /* 1-bit 像素字符 sprite 容器 */
+    .pixel-sprite {
+        font-family: 'Press Start 2P', monospace;
+        image-rendering: pixelated;
+    }
+    /* 次文字高亮:极光绿渐变(给名字用) */
+    .sun-text {
+        background: linear-gradient(180deg, #d1fae5 0%, #4ade80 50%, #2dd4bf 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+
+    .tag {
+        @apply inline-block px-3 py-1 text-xs font-medium border-2 border-ink-700/20 bg-white text-ink-700 tracking-wider rounded-none;
+    }
+    .tag-ember {
+        @apply border-aurora-green text-aurora-green bg-aurora-green/5;
+    }
+    .tag-sun {
+        @apply border-celeste-sun text-ink-800 bg-celeste-sun/10;
+    }
+
+    /* 时间线节点:Celeste 配色 */
+    .timeline-node {
+        @apply absolute left-0 md:left-1/2 w-4 h-4 bg-white border-2 border-ink-700 rounded-full -translate-x-1/2;
+    }
+    .timeline-node.node-active {
+        @apply bg-aurora-green border-aurora-green;
+        box-shadow: 0 0 16px rgba(74, 222, 128, 0.9), 0 0 32px rgba(74, 222, 128, 0.4);
+    }
+    .timeline-node.node-future {
+        @apply bg-paper-100 border-aurora-violet/60;
+        box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+    }
+    /* 时间线流光光标(4x4 像素亮点,自动循环扫描) */
+    .timeline-cursor {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 4px;
+        height: 4px;
+        background: #4ade80;
+        box-shadow: 0 0 8px #4ade80, 0 0 16px rgba(74, 222, 128, 0.5);
+        transform: translate(-50%, -2px);
+        animation: timelineTravel 9s linear infinite;
+        z-index: 6;
+    }
+    @keyframes timelineTravel {
+        0%   { top: 0%;    opacity: 0; }
+        4%   { opacity: 1; }
+        32%  { top: 25%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        36%  { top: 25%;   opacity: 1; }
+        60%  { top: 55%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        64%  { top: 55%;   opacity: 1; }
+        92%  { top: 92%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        96%  { top: 92%;   opacity: 1; }
+        100% { top: 100%;  opacity: 0; }
+    }
+
+    /* 进度条:1-bit 实色,无 glow */
+    .skill-bar {
+        @apply h-3 bg-paper-100 overflow-hidden relative border-2 border-ink-900 rounded-none;
+        background-image: repeating-linear-gradient(90deg, transparent 0, transparent 7px, rgba(0,0,0,0.06) 7px, rgba(0,0,0,0.06) 8px);
+    }
+    .skill-bar-fill {
+        @apply h-full bg-aurora-green;
+        transition: width 1.2s steps(40) 0.3s;
+        background-image:
+            linear-gradient(90deg, #4ade80 0%, #4ade80 100%),
+            repeating-linear-gradient(90deg, transparent 0, transparent 5px, rgba(255,255,255,0.35) 5px, rgba(255,255,255,0.35) 6px);
+        background-blend-mode: overlay;
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 浅色装饰扫描线(减弱) */
+    .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(10, 10, 10, 0.01) 50%,
+            transparent 100%
+        );
+        background-size: 100% 4px;
+        opacity: 0.25;
+    }
+
+    /* ========== CRT 效果(8-bit 像素版) ========== */
+    .crt-scanlines {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9990;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(5, 11, 26, 0.03) 0px,
+            rgba(5, 11, 26, 0.03) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+        animation: crt-scroll 12s linear infinite;
+    }
+    @keyframes crt-scroll {
+        0%   { background-position: 0 0; }
+        100% { background-position: 0 100vh; }
+    }
+
+    .crt-scanband {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        pointer-events: none;
+        z-index: 9991;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(74, 222, 128, 0.06) 45%,
+            rgba(74, 222, 128, 0.15) 50%,
+            rgba(74, 222, 128, 0.06) 55%,
+            transparent 100%
+        );
+        animation: scanband-move 6s linear infinite;
+        mix-blend-mode: multiply;
+    }
+    @keyframes scanband-move {
+        0%   { top: -120px; }
+        100% { top: 100vh; }
+    }
+
+    .crt-noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9992;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        animation: noise-shift 0.15s steps(3) infinite;
+    }
+    @keyframes noise-shift {
+        0%   { transform: translate(0, 0); }
+        33%  { transform: translate(-2%, 1%); }
+        66%  { transform: translate(1%, -2%); }
+        100% { transform: translate(0, 0); }
+    }
+
+    .crt-vignette {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9993;
+        background: radial-gradient(
+            ellipse at center,
+            transparent 60%,
+            rgba(216, 210, 192, 0.2) 100%
+        );
+    }
+
+    /* 故障条:暖橙 */
+    .crt-glitch {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9995;
+        opacity: 0;
+        mix-blend-mode: screen;
+        background:
+            linear-gradient(90deg,
+                transparent 0%,
+                transparent 48%,
+                rgba(74, 222, 128, 0.5) 50%,
+                transparent 52%,
+                transparent 100%);
+    }
+    .crt-glitch.active {
+        animation: glitch-flash 0.18s steps(2) 3;
+    }
+    @keyframes glitch-flash {
+        0%   { opacity: 0; transform: translateX(0); }
+        25%  { opacity: 1; transform: translateX(-4px); }
+        50%  { opacity: 0.8; transform: translateX(3px); }
+        75%  { opacity: 1; transform: translateX(-2px); }
+        100% { opacity: 0; transform: translateX(0); }
+    }
+
+    .crt-tear {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        pointer-events: none;
+        z-index: 9996;
+        background: #4ade80;
+        box-shadow: 0 0 12px rgba(74, 222, 128, 0.9);
+        opacity: 0;
+        top: 50%;
+    }
+    .crt-tear.active {
+        animation: tear-flash 0.12s steps(2) 2;
+    }
+    /* ========== RGB Split 故障(白底区):红/蓝青 ghost 副本错位 ========== */
+    .glitch-rgb {
+        position: relative;
+    }
+    .glitch-rgb::before,
+    .glitch-rgb::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        line-height: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        font-weight: inherit;
+    }
+    .glitch-rgb::before {
+        color: #ff003c;
+        transform: translate(-0.5px, 0);
+        mix-blend-mode: multiply;
+        opacity: 0.35;
+        animation: glitchRed 5.5s infinite steps(1);
+    }
+    .glitch-rgb::after {
+        color: #00b8ff;
+        transform: translate(0.5px, 0);
+        mix-blend-mode: multiply;
+        opacity: 0.35;
+        animation: glitchBlue 6.2s infinite steps(1);
+    }
+    @keyframes glitchRed {
+        0%, 90%, 100% { transform: translate(-0.5px, 0); opacity: 0.35; }
+        92%           { transform: translate(-1.5px, 0); opacity: 0.3; }
+        94%           { transform: translate(0, 0); opacity: 0.45; }
+        96%           { transform: translate(-0.5px, 0); opacity: 0.35; }
+    }
+    @keyframes glitchBlue {
+        0%, 88%, 100% { transform: translate(0.5px, 0); opacity: 0.35; }
+        90%           { transform: translate(1.5px, 0); opacity: 0.3; }
+        92%           { transform: translate(0, 0); opacity: 0.45; }
+        94%           { transform: translate(0.5px, 0); opacity: 0.35; }
+    }
+    @keyframes tear-flash {
+        0%   { opacity: 0; transform: scaleX(0); }
+        50%  { opacity: 1; transform: scaleX(1); }
+        100% { opacity: 0; transform: scaleX(0.95); }
+    }
+
+    body.glitch-jitter {
+        animation: body-jitter 0.08s steps(2) 4;
+    }
+    @keyframes body-jitter {
+        0%   { transform: translate(0, 0); filter: none; }
+        25%  { transform: translate(-3px, 1px); filter: brightness(0.97); }
+        50%  { transform: translate(2px, -1px); filter: brightness(1.02); }
+        75%  { transform: translate(-1px, 2px); filter: brightness(0.98); }
+        100% { transform: translate(0, 0); filter: none; }
+    }
+
+    /* ========== 自定义光标(8-bit 直角) ========== */
+    body.has-custom-cursor,
+    body.has-custom-cursor * {
+        cursor: none !important;
+    }
+    .cursor-crosshair {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        pointer-events: none;
+        z-index: 100000;
+        will-change: transform;
+        transform: translate3d(-100px, -100px, 0);
+        transition: width 0.15s steps(2), height 0.15s steps(2);
+    }
+    .cursor-trail-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: #4ade80;
+        pointer-events: none;
+        z-index: 99999;
+        box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+        will-change: transform, opacity;
+        transform: translate3d(-100px, -100px, 0);
+    }
+    .cursor-crosshair.hover {
+        width: 40px;
+        height: 40px;
+    }
+    .cursor-crosshair.hover .cross-line {
+        background: #4ade80;
+    }
+    .cursor-crosshair.hover .cross-center {
+        background: #4ade80;
+        box-shadow: 0 0 12px #4ade80;
+    }
+    .cursor-crosshair .click-label {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 6px;
+        font-size: 8px;
+        font-family: 'Press Start 2P', monospace;
+        color: #4ade80;
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transition: opacity 0.15s;
+        white-space: nowrap;
+    }
+    .cursor-crosshair.hover .click-label {
+        opacity: 1;
+    }
+
+    /* ========== Konami 彩蛋:像素雪崩(白底反骨版) ========== */
+    #matrix-rain {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99980;
+        background: rgba(5, 11, 26, 0.95);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s steps(4);
+    }
+    #matrix-rain.active {
+        opacity: 1;
+    }
+    .konami-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        z-index: 99990;
+        pointer-events: none;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.4s, transform 0.4s;
+    }
+    .konami-banner.active {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    .konami-banner .title {
+        font-family: 'Press Start 2P', monospace;
+        font-size: clamp(20px, 4vw, 36px);
+        color: #4ade80;
+        text-shadow: 4px 4px 0 #2dd4bf, 8px 8px 0 #8b5cf6;
+        letter-spacing: 0.1em;
+        margin-bottom: 16px;
+    }
+    .konami-banner .subtitle {
+        font-family: 'JetBrains Mono Variable', ui-monospace, monospace;
+        font-size: clamp(14px, 2vw, 20px);
+        color: #a7f3d0;
+        letter-spacing: 0.1em;
+    }
+    .konami-hint {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 99970;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        color: #666666;
+        padding: 6px 10px;
+        border: 2px solid #ebe7dc;
+        background: rgba(255, 255, 255, 0.85);
+        opacity: 0;
+        transition: opacity 0.6s;
+    }
+    .konami-hint.show {
+        opacity: 1;
+    }
+    .konami-hint kbd {
+        display: inline-block;
+        padding: 1px 5px;
+        margin: 0 1px;
+        background: #f5f3ed;
+        border: 1px solid #ebe7dc;
+        color: #16a34a;
+        font-size: 9px;
+        font-family: 'Press Start 2P', monospace;
+    }
+
+    /* ========== 3D 透视卡片 ========== */
+    .card-3d-inner {
+        position: relative;
+    }
+    /* ========== 1-bit Adventure 小游戏 ========== */
+    .adventure-game {
+        position: fixed;
+        inset: 0;
+        z-index: 99995;
+        background: #050b1a;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .adventure-game.active {
+        display: flex;
+        animation: adventureFadeIn 0.3s steps(4);
+    }
+    @keyframes adventureFadeIn {
+        0%   { opacity: 0; }
+        50%  { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+    .adventure-hud {
+        width: 640px;
+        max-width: 100%;
+        padding: 8px 12px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 10px;
+        color: #4ade80;
+        border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+    }
+    .adventure-score, .adventure-time { letter-spacing: 0.1em; }
+    .adventure-hint {
+        margin-left: auto;
+        color: #a0b0a0;
+        font-size: 8px;
+    }
+    #adventure-canvas {
+        display: block;
+        width: 640px;
+        max-width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        background: #050b1a;
+    }
+    .adventure-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        background: rgba(5, 11, 26, 0.85);
+        color: #e6f0e0;
+        font-family: 'Press Start 2P', monospace;
+        text-align: center;
+        padding: 20px;
+    }
+    .adventure-overlay.hidden { display: none; }
+    .adventure-title {
+        font-size: clamp(16px, 3vw, 28px);
+        color: #4ade80;
+        text-shadow: 3px 3px 0 #2dd4bf, 6px 6px 0 #8b5cf6;
+        letter-spacing: 0.1em;
+    }
+    .adventure-sub {
+        font-size: clamp(9px, 1.5vw, 12px);
+        color: #a0b0a0;
+        line-height: 1.8;
+    }
+    .adventure-keys {
+        font-size: clamp(8px, 1.2vw, 10px);
+        color: #4ade80;
+        letter-spacing: 0.15em;
+    }
+    .adventure-game:not(.active) .adventure-hud { display: none; }
+    .card-shine {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle 300px at var(--mx, 50%) var(--my, 50%),
+            rgba(74, 222, 128, 0.2) 0%,
+            rgba(74, 222, 128, 0.05) 25%,
+            transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        z-index: 2;
+    }
+    .card-3d:hover .card-shine {
+        opacity: 1;
+    }
+    .card-3d::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            105deg,
+            transparent 40%,
+            rgba(74, 222, 128, 0.3) 50%,
+            transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        z-index: 3;
+    }
+    .card-3d:hover::after {
+        opacity: 1;
+        animation: holo-sweep 1.8s steps(8) infinite;
+    }
+    @keyframes holo-sweep {
+        0%, 100% { transform: translateX(-100%); }
+        50%      { transform: translateX(100%); }
+    }
+    .card-3d .layer-deep {
+        transform: translateZ(20px);
+    }
+    .card-3d .layer-deeper {
+        transform: translateZ(40px);
+    }
+
+    /* ========== Hero 打字机:暖橙光标 ========== */
+    .tw-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: #4ade80;
+        margin-left: 2px;
+        animation: blink 1s steps(2) infinite;
+        vertical-align: text-bottom;
+    }
+
+    /* 像素块装饰:8-bit 风格直角小方块 */
+    .pixel-deco {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* section divider 像素云 */
+    .pixel-clouds {
+        background-image:
+            radial-gradient(8px 8px at 10% 50%, #ebe7dc 50%, transparent 50%),
+            radial-gradient(12px 12px at 25% 50%, #ebe7dc 50%, transparent 50%),
+            radial-gradient(6px 6px at 40% 50%, #ebe7dc 50%, transparent 50%),
+            radial-gradient(10px 10px at 55% 50%, #ebe7dc 50%, transparent 50%),
+            radial-gradient(8px 8px at 70% 50%, #ebe7dc 50%, transparent 50%),
+            radial-gradient(14px 14px at 85% 50%, #ebe7dc 50%, transparent 50%);
+        height: 16px;
+    }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+    .crt-noise {
+        display: none;
+    }
+
+    .crt-scanband {
+        opacity: 0.45;
+        animation-duration: 12s;
+    }
+
+    .glitch-rgb::before,
+    .glitch-rgb::after {
+        animation: none;
+        opacity: 0.15;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .celeste-sky::before,
+    .aurora-curtain,
+    .celeste-mountains,
+    .timeline-cursor,
+    .crt-scanlines,
+    .crt-scanband,
+    .crt-noise,
+    .glitch-rgb::before,
+    .glitch-rgb::after,
+    .tw-cursor {
+        animation: none !important;
+    }
+
+    .pixel-snow,
+    .crt-scanband,
+    .crt-noise,
+    .timeline-cursor,
+    .cursor-trail-dot {
+        display: none;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .skill-bar-fill {
+        transition: none;
+    }
+}

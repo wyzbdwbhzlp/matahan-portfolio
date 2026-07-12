@@ -182,6 +182,9 @@
 
 - 人读规范：`docs/art-style-guide.md`
 - CSS token：`src/styles/design-tokens.css`
+- 本地字体入口：`src/styles/fonts.css`
 - 首页参考：`src/pages/index.astro`
-- 交互参考：`public/main.js`
-- 当前静态样式参考：`public/tw.css`
+- 交互参考：`src/scripts/home/index.ts` 与 `src/scripts/home/`
+- 首页样式源：`src/styles/home.css`
+- Tailwind 主题配置：`tailwind.config.mjs`
+- 性能预算：`performance-budget.json`

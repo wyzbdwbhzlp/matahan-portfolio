@@ -1,114 +1,249 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_DESCRIPTION } from '../../consts';
+import { getVisibleBlogPosts } from '../../utils/blog';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = await getVisibleBlogPosts();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title="Devlog | Wu Haohan" description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
+		<main class="devlog-page">
+			<header class="devlog-header">
+				<p class="terminal-line"><span>$</span> ls ./devlog</p>
+				<h1>DEVLOG</h1>
+				<p class="lead">记录独立游戏从灵感、原型和系统实现，到最终复盘的完整过程。</p>
+				<div class="index-status">
+					<span>ENTRIES {String(posts.length).padStart(2, '0')}</span>
+					<span>STATUS {posts.length > 0 ? 'ONLINE' : 'INITIALIZING'}</span>
+				</div>
+			</header>
+
+			{
+				posts.length === 0 ? (
+					<section class="empty-state" aria-labelledby="empty-title">
+						<p class="empty-code">[ NO_LOG_ENTRIES ]</p>
+						<h2 id="empty-title">开发日志正在整理中</h2>
+						<p>第一批内容将围绕游戏原型、系统设计和 Game Jam 复盘展开。</p>
+						<a href="/#projects">返回作品列表 <span aria-hidden="true">-&gt;</span></a>
+					</section>
+				) : (
+					<ol class="post-list">
+						{posts.map((post, index) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
+								<a class="post-card" href={`/blog/${post.id}/`}>
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<div class="post-image">
+											<Image
+												width={960}
+												height={540}
+												src={post.data.heroImage}
+												alt={post.data.heroAlt ?? ''}
+											/>
+										</div>
 									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+									<div class="post-copy">
+										<div class="post-meta">
+											<span>LOG_{String(index + 1).padStart(2, '0')}</span>
+											<FormattedDate date={post.data.pubDate} />
+											{post.data.draft && <span class="draft">DRAFT</span>}
+										</div>
+										<h2>{post.data.title}</h2>
+										<p>{post.data.description}</p>
+										{post.data.tags.length > 0 && (
+											<ul class="tags" aria-label="文章标签">
+												{post.data.tags.map((tag) => <li>{tag}</li>)}
+											</ul>
+										)}
+									</div>
 								</a>
 							</li>
-						))
-					}
-				</ul>
-			</section>
+						))}
+					</ol>
+				)
+			}
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.devlog-page {
+		width: min(var(--content-max), calc(100% - 2rem));
+		min-height: 70vh;
+		margin: 0 auto;
+		padding: clamp(3rem, 8vw, 6rem) 0;
+	}
+	.devlog-header {
+		max-width: 52rem;
+		margin-bottom: 4rem;
+	}
+	.terminal-line {
+		margin: 0 0 1rem;
+		color: var(--ink-500);
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+	}
+	.terminal-line span {
+		color: var(--aurora-green);
+		font-weight: 700;
+	}
+	h1 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2.75rem, 10vw, 6.5rem);
+		line-height: 0.95;
+		letter-spacing: 0;
+		text-shadow: 5px 5px 0 var(--aurora-green);
+	}
+	.lead {
+		max-width: 42rem;
+		margin: 2rem 0;
+		color: var(--ink-600);
+		font-size: clamp(1rem, 2vw, 1.2rem);
+	}
+	.index-status {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 2rem;
+		padding: 0.8rem 1rem;
+		border-block: 2px solid var(--ink-900);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+	.empty-state {
+		max-width: 48rem;
+		padding: clamp(2rem, 6vw, 4rem) 0;
+		border-top: var(--border-pixel);
+		border-bottom: var(--border-pixel);
+	}
+	.empty-code {
+		margin: 0 0 1rem;
+		color: var(--aurora-violet);
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
+	.empty-state h2 {
+		margin: 0 0 1rem;
+		font-family: var(--font-pixel);
+		font-size: clamp(1rem, 3vw, 1.45rem);
+		line-height: 1.6;
+		letter-spacing: 0;
+	}
+	.empty-state p:not(.empty-code) {
+		max-width: 40rem;
+		color: var(--ink-500);
+	}
+	.empty-state a {
+		display: inline-block;
+		margin-top: 1rem;
+		padding: 0.65rem 0.85rem;
+		border: var(--button-border);
+		box-shadow: var(--button-shadow);
+		color: var(--ink-900);
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.empty-state a:hover {
+		background: var(--aurora-green);
+		box-shadow: none;
+		transform: translate(2px, 2px);
+	}
+	.post-list,
+	.tags {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.post-list {
+		display: grid;
+		gap: 2rem;
+	}
+	.post-card {
+		display: grid;
+		grid-template-columns: minmax(14rem, 0.8fr) minmax(0, 1.2fr);
+		border: var(--card-border);
+		box-shadow: var(--card-shadow);
+		color: var(--ink-900);
+		text-decoration: none;
+		transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+	}
+	.post-card:hover {
+		box-shadow: var(--card-shadow-hover);
+		transform: translate(-3px, -3px);
+	}
+	.post-image {
+		min-height: 14rem;
+		border-right: var(--border-pixel);
+		background: var(--sky-deep);
+		overflow: hidden;
+	}
+	.post-image :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.post-copy {
+		padding: clamp(1.25rem, 4vw, 2rem);
+	}
+	.post-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		color: var(--ink-500);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+	}
+	.draft {
+		color: var(--aurora-danger);
+		font-weight: 700;
+	}
+	.post-copy h2 {
+		margin: 1rem 0 0.75rem;
+		font-size: clamp(1.35rem, 4vw, 2rem);
+		letter-spacing: 0;
+	}
+	.post-copy p {
+		margin: 0;
+		color: var(--ink-500);
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1.25rem;
+	}
+	.tags li {
+		padding: 0.2rem 0.45rem;
+		border: var(--tag-border);
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+	}
+	@media (max-width: 720px) {
+		.devlog-header {
+			margin-bottom: 2.5rem;
+		}
+		.post-card {
+			grid-template-columns: 1fr;
+		}
+		.post-image {
+			min-height: 11rem;
+			border-right: 0;
+			border-bottom: var(--border-pixel);
+		}
+	}
+</style>
