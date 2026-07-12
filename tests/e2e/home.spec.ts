@@ -38,10 +38,12 @@ test('language switch updates navigation and restarts typewriter', async ({ page
 	await page.locator('#lang-toggle').click();
 	await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 	await expect(page.locator('[data-i18n="nav.projects"]').first()).toContainText('Works');
+	await expect(page.locator('[data-i18n="j3.title"]')).toContainText('Zenless Zone Zero Internship');
 	await expect(page.locator('#tw-line-1')).toContainText('Write poetry in code', { timeout: 10_000 });
 
 	await page.locator('#lang-toggle').click();
 	await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN');
+	await expect(page.locator('[data-i18n="j3.title"]')).toContainText('《绝区零》项目组实习');
 	await expect(page.locator('#tw-line-1')).toContainText('用代码写诗', { timeout: 10_000 });
 });
 

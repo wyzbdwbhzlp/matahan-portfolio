@@ -379,12 +379,12 @@
     @keyframes timelineTravel {
         0%   { top: 0%;    opacity: 0; }
         4%   { opacity: 1; }
-        32%  { top: 25%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
-        36%  { top: 25%;   opacity: 1; }
-        60%  { top: 55%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
-        64%  { top: 55%;   opacity: 1; }
-        92%  { top: 92%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
-        96%  { top: 92%;   opacity: 1; }
+        29%  { top: 32%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        33%  { top: 32%;   opacity: 1; }
+        58%  { top: 63%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        62%  { top: 63%;   opacity: 1; }
+        92%  { top: 94%;   opacity: 1; box-shadow: 0 0 16px #4ade80, 0 0 32px rgba(74, 222, 128, 0.7); }
+        96%  { top: 94%;   opacity: 1; }
         100% { top: 100%;  opacity: 0; }
     }
 
