@@ -1,0 +1,162 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { projects, type HomeProject } from '../../data/projects';
+import '../../styles/project-detail.css';
+
+export function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+interface Props {
+	project: HomeProject;
+}
+
+const { project } = Astro.props;
+const projectIndex = projects.findIndex((item) => item.id === project.id);
+const previousProject = projects[(projectIndex - 1 + projects.length) % projects.length];
+const nextProject = projects[(projectIndex + 1) % projects.length];
+const title = `${project.title.fallback}${project.title.suffix ? ` ${project.title.suffix}` : ''}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`${title} | Wu Haohan`} description={project.detail.overview} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="project-hero" aria-labelledby="project-title">
+				<div class="hero-stars" aria-hidden="true">
+					<span></span><span></span><span></span><span></span><span></span><span></span>
+				</div>
+				<div class="project-shell project-hero-layout">
+					<div class="project-hero-copy">
+						<a class="back-link" href="/#projects"><span aria-hidden="true">&larr;</span> 返回 Selected Works</a>
+						<p class="project-file"><span class="status-dot" aria-hidden="true"></span>{project.fileLabel} / LOADED</p>
+						<h1 id="project-title">
+							<span>{project.title.fallback}</span>
+							{project.title.suffix && <small>{project.title.suffix}</small>}
+						</h1>
+						<p class="project-lead">{project.detail.overview}</p>
+						<ul class="project-tags" aria-label="项目标签">
+							{project.tags.map((tag) => <li>{tag.fallback}</li>)}
+						</ul>
+					</div>
+
+					<div class="project-terminal" aria-label={`${title} 项目信息面板`}>
+						<div class="terminal-bar">
+							<span>PROJECT_PROFILE</span>
+							<span>{String(projectIndex + 1).padStart(2, '0')}/{String(projects.length).padStart(2, '0')}</span>
+						</div>
+						<div class="terminal-visual">
+							<span class="project-icon" aria-hidden="true">{project.icon}</span>
+							<strong>{project.visualLabel}</strong>
+						</div>
+						<dl>
+							<div><dt>PERIOD</dt><dd>{project.detail.period}</dd></div>
+							<div><dt>ROLE</dt><dd>{project.detail.role}</dd></div>
+							<div><dt>STACK</dt><dd>{project.stack.fallback}</dd></div>
+						</dl>
+					</div>
+				</div>
+			</section>
+
+			<div class="project-shell project-content-layout">
+				<aside class="project-index" aria-label="详情页目录">
+					<p>PROJECT INDEX</p>
+					<a href="#contributions">01 / 核心工作</a>
+					<a href="#results">02 / 项目成果</a>
+					{project.detail.links && <a href="#links">03 / 项目链接</a>}
+				</aside>
+
+				<article class="project-detail">
+					<header class="detail-intro">
+						<p class="section-code">// CASE STUDY</p>
+						<h2>把玩法目标拆成可运行的系统</h2>
+						<p>
+							以下内容依据简历中的项目记录整理，聚焦我实际负责的系统、技术实现与最终结果。
+						</p>
+					</header>
+
+					<section id="contributions" class="detail-section" aria-labelledby="contributions-heading">
+						<div class="section-heading">
+							<span>01</span>
+							<div>
+								<p>RESPONSIBILITIES</p>
+								<h2 id="contributions-heading">核心工作</h2>
+							</div>
+						</div>
+
+						<div class="contribution-list">
+							{project.detail.contributions.map((group, index) => (
+								<section class="contribution-row">
+									<div class="row-number">{String(index + 1).padStart(2, '0')}</div>
+									<div>
+										<h3>{group.title}</h3>
+										<ul>
+											{group.items.map((item) => <li>{item}</li>)}
+										</ul>
+									</div>
+								</section>
+							))}
+						</div>
+					</section>
+
+					<section id="results" class="detail-section" aria-labelledby="results-heading">
+						<div class="section-heading">
+							<span>02</span>
+							<div>
+								<p>OUTCOMES</p>
+								<h2 id="results-heading">项目成果</h2>
+							</div>
+						</div>
+						<ul class="result-list">
+							{project.detail.results.map((result) => (
+								<li><span aria-hidden="true">+</span>{result}</li>
+							))}
+						</ul>
+					</section>
+
+					{project.detail.links && (
+						<section id="links" class="detail-section" aria-labelledby="links-heading">
+							<div class="section-heading">
+								<span>03</span>
+								<div>
+									<p>PLAY / WATCH</p>
+									<h2 id="links-heading">项目链接</h2>
+								</div>
+							</div>
+							<div class="project-links">
+								{project.detail.links.map((link) => (
+									<a href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener' : undefined}>
+										{link.label}<span aria-hidden="true">&nearr;</span>
+									</a>
+								))}
+							</div>
+						</section>
+					)}
+				</article>
+			</div>
+
+			<nav class="project-siblings" aria-label="其他项目">
+				<div class="project-shell sibling-layout">
+					<a href={`/projects/${previousProject.id}/`}>
+						<span>&larr; PREVIOUS</span>
+						<strong>{previousProject.title.fallback}</strong>
+					</a>
+					<a class="next-project" href={`/projects/${nextProject.id}/`}>
+						<span>NEXT &rarr;</span>
+						<strong>{nextProject.title.fallback}</strong>
+					</a>
+				</div>
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>

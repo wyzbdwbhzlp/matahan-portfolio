@@ -16,7 +16,7 @@ import { projects } from '../../data/projects';
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {projects.map((project) => (
-                <div class="card-3d">
+                <a class="card-3d block text-inherit no-underline" href={`/projects/${project.id}/`} aria-label={`查看 ${project.title.fallback} 项目详情`}>
                     <article
                         class:list={[
                             'glass-card p-6 md:p-8 group reveal card-3d-inner relative overflow-hidden',
@@ -69,9 +69,14 @@ import { projects } from '../../data/projects';
                             <span data-i18n={project.stack.i18nKey}>{project.stack.fallback}</span>
                         </div>
 
+                        <div class="mt-5 flex items-center justify-between text-xs font-mono text-aurora-green">
+                            <span data-i18n="proj.viewDetails">查看详情</span>
+                            <span aria-hidden="true">-&gt;</span>
+                        </div>
+
                         <div class="card-shine"></div>
                     </article>
-                </div>
+                </a>
             ))}
 
         </div>
